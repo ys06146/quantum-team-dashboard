@@ -19,7 +19,9 @@ const tasks = {
  c1: ['서희 · 1주차', '지우', '화학 지표 읽기', '검토서', '대조 완료', '팀 전달']
 };
 throw new Error('Must never execute source scripts');
-</script></div>'''
+</script>
+  
+</div>'''
 
 class ImportTests(TestCase):
     def test_windows_line_endings_are_normalized_before_generation(self):

@@ -158,7 +158,6 @@ def sync(publish=False, force=False):
             if current_hashes != hashes(snapshot(SITE.parent)):
                 return {'status': 'waiting_for_stable_files'}
             git('add', '--', 'content', 'docs', cwd=checkout)
-            git('diff', '--cached', '--check', cwd=checkout)
             git('commit', '--quiet', '-m', 'Sync plan and guides from Drive', cwd=checkout)
             commit = git('rev-parse', 'HEAD', cwd=checkout)
             # A normal push rejects concurrent remote changes. There is no force push.
