@@ -20,6 +20,7 @@ from drive_sources import VERSION, import_documents, snapshot
 
 SITE = Path(__file__).resolve().parent
 STATE = SITE / '.sync-state'
+CACHE = Path(os.environ.get('LOCALAPPDATA', tempfile.gettempdir())) / 'QuantumTeamDashboard' / 'builds'
 REMOTE = 'https://github.com/ys06146/quantum-team-dashboard.git'
 PUBLIC = 'https://ys06146.github.io/quantum-team-dashboard/'
 SECRET = re.compile(r'-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----|github_pat_[A-Za-z0-9_]{20,}|gh[pousr]_[A-Za-z0-9]{25,}|sk-[A-Za-z0-9_-]{30,}|AKIA[0-9A-Z]{16}|AIza[A-Za-z0-9_-]{30,}')
@@ -128,9 +129,10 @@ def sync(publish=False, force=False):
         return result
     if publish and not reconcile_repo():
         return {'status': 'repository_updated_retry_next_run'}
-    temporary = tempfile.TemporaryDirectory(prefix='build-', dir=STATE)
+    CACHE.mkdir(parents=True, exist_ok=True)
+    temporary = tempfile.TemporaryDirectory(prefix='build-', dir=CACHE)
     candidate = Path(temporary.name).resolve()
-    assert candidate.is_relative_to(STATE.resolve()), 'Temporary cleanup must stay inside .sync-state.'
+    assert candidate.is_relative_to(CACHE.resolve()), 'Temporary cleanup must stay inside the local build cache.'
     with temporary:
         checkout = candidate / 'site'
         if publish:

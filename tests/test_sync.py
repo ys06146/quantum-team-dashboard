@@ -91,7 +91,7 @@ class GitIntegrationTests(TestCase):
             sync.git('remote', 'add', 'origin', str(remote), cwd=site)
             sync.git('push', '-u', 'origin', 'main', cwd=site)
             state = site / '.sync-state'; state.mkdir()
-            with patch.multiple(sync, SITE=site, STATE=state, REMOTE=str(remote)):
+            with patch.multiple(sync, SITE=site, STATE=state, REMOTE=str(remote), CACHE=work / 'build-cache'):
                 published = sync.sync(publish=True)
                 self.assertEqual(published['status'], 'pushed_waiting_for_pages')
                 self.assertIn('기준 내용', (site / 'docs/guides/seohee.html').read_text(encoding='utf-8'))

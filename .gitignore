@@ -6,3 +6,4 @@ desktop.ini
 .env.*
 
 .sync-state/
+.git-drive-backup/
