@@ -1,0 +1,41 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="referrer" content="no-referrer"><meta name="description" content="다섯 명의 양자 회로 팀을 위한 3주 실행 계획, 개인별 가이드와 공식 기준 예제 검증 기록."><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'"><title>서진 가이드 · Quantum Team</title><link rel="stylesheet" href="../assets/styles.css"><script src="../assets/app.js" defer></script></head><body><div class="shell">
+<aside class="sidebar"><a class="brand" href="../index.html"><span class="brand-mark" aria-hidden="true">Q</span><span>Quantum Team<small>CIRCUIT COMPILATION</small></span></a><button class="menu-button" type="button" aria-controls="site-nav" aria-expanded="false">메뉴</button><div class="side-caption">TEAM WORKSPACE</div><nav class="side-nav" id="site-nav" aria-label="대시보드"><a href="../index.html"><span class="nav-no">01</span>전체 현황</a><a href="../plan.html"><span class="nav-no">02</span>3주 계획 · 역할</a><a href="../guides.html" aria-current="page"><span class="nav-no">03</span>개인별 가이드</a><a href="../results.html"><span class="nav-no">04</span>검증 결과</a><a href="../resources.html"><span class="nav-no">05</span>자료 · 실행 안내</a></nav><div class="side-bottom"><strong>Google Quantum AI</strong>5인 팀 · 3주 실행안<br>2026.11.09 — 11.29</div></aside>
+<main class="content"><div class="topline"><span>팀 워크스페이스 / 서진 가이드</span><span>업데이트 2026.11.08</span></div><div class="page-head"><span class="eyebrow">WEEK 01 / DATA SCIENCE &amp; CS</span><h1>서진 · 회로 · 실행 통합</h1><p>공통 실행 환경과 회로, 검증 기록을 연결해요.</p></div><div class="doc-layout"><article class="document"><p class="doc-title">서진 · Week 1 실행·통합 가이드</p>
+<p>서진은 공통 실행 환경, 세 과제의 검증 기록, 회로 통합과 제출 묶음을 담당한다. 예찬·지우가 후보 생성 코드와 설정을 만들고, 서희가 화학 지표를 검토하며, 소연이 독립 비교를 맡는다.</p>
+<h2 id="section-1">1. 먼저 확인할 기준 결과</h2>
+<p><a href="../results.html">검증 결과 페이지</a>에 세 공식 예제의 full PASS 기록을 정리했다. invsqrt는 200,540,928 shots, DQI는 102,400 shots, DFTHC-SOS는 254,464 shots를 검사했다. 기록은 2026-11-07 기준이며 새로운 후보의 통과를 뜻하지 않는다.</p>
+<div class="table-wrap"><table><thead><tr><th>먼저 볼 파일</th><th>확인할 내용</th></tr></thead><tbody>
+<tr><td><code>reports/BASELINE_RESULTS.md</code></td><td>과제별 기준 비용·샷 수·재실행 환경</td></tr>
+<tr><td><code>reports/baseline_manifest.json</code></td><td>확정된 과제별 원본 결과 경로</td></tr>
+<tr><td><code>scripts/run_baselines.py</code></td><td>full·smoke 분리, 입력·소스 해시와 실행 로그 저장</td></tr>
+<tr><td><code>scripts/environment_check.py</code></td><td>Python·패키지 버전과 kickmix 동작 확인</td></tr>
+<tr><td><code>scripts/verify_assets.py</code></td><td>공식 ZIP과 추출한 파일의 무결성 확인</td></tr>
+</tbody></table></div>
+<p>파일은 공통 <code>seojin_work/week1</code> 기준이다. <a href="../resources.html">자료 안내</a>에서 공식 데이터와 작업 폴더를 확인한다.</p>
+<h2 id="section-2">2. 실행 환경 확인</h2>
+<p>공유 가상환경은 기반 Python이 3.13으로 바뀌고 바이너리 패키지가 3.12로 남은 이력이 있다. 개인 PC에 Python 3.12 가상환경을 만들고 kickmix 1.0.0, NumPy 2.2.6, SciPy 1.15.3을 확인한다. 구체적인 Windows 준비 명령은 <a href="jiwoo.html#section-2">지우 가이드의 환경 준비</a>를 따른다.</p>
+<p>새 실행에서는 Python 버전, 패키지 버전, 운영체제, 작업 경로를 실제로 기록한다. 과거 결과를 새 PC의 동작 확인으로 대신하지 않는다. Windows에서 KMB를 읽을 때는 공통 week1 폴더에서 영문 상대 경로를 사용한다.</p>
+<h2 id="section-3">3. 세 과제 검증과 기록</h2>
+<p>환경 준비에서 설정한 <code>$Py</code>를 사용하고, 작업 위치를 <code>seojin_work/week1</code>로 맞춘다.</p>
+<pre><code>&amp; $Py scripts\environment_check.py
+&amp; $Py scripts\verify_assets.py
+&amp; $Py scripts\run_baselines.py --profile full --parallel 3 --workers 1 --invsqrt-workers 8</code></pre>
+<p>마지막 옵션은 invsqrt의 Windows 프로세스 분배를 보완한다. 원본 작업·샷·배치·시드를 유지하고 각 프로세스가 작업의 동일성을 확인한다. CPU·메모리 여유에 맞춰 워커 수를 정한다. DQI는 대용량 회로를 사용하므로 운영체제와 동시 실행 메모리도 기록한다.</p>
+<p><code>reports/runs/&lt;실행ID&gt;</code>의 JSON과 대응하는 <code>logs/&lt;실행ID&gt;</code>를 한 묶음으로 보존한다. 전체 검증이 끝나지 않은 실행은 완료된 PASS로 표시하지 않는다.</p>
+<h2 id="section-4">4. 후보를 전달받을 때</h2>
+<div class="table-wrap"><table><thead><tr><th>담당</th><th>받아야 할 파일과 근거</th></tr></thead><tbody>
+<tr><td>예찬</td><td>invsqrt 후보 KMB, 생성 코드·설정, 모델 오차와 경계 입력 분석</td></tr>
+<tr><td>지우</td><td>같은 실험에서 만든 NPZ·전체 ANGLE 회로, 트리·정밀도·분해 설정</td></tr>
+<tr><td>서희</td><td>화학 지표 해석, 오차 여유, 후보에 대한 채택·보류 근거</td></tr>
+<tr><td>소연</td><td>기준 대비 공식 비용·오류·자원 비교와 독립 재검증 로그</td></tr>
+</tbody></table></div>
+<p>각 후보에 실험 ID, 파일 해시, 생성 명령, 환경 버전, 수치 모델 결과와 full 결과를 연결한다. 화학 후보는 NPZ와 ANGLE 묶음이 같은 설정인지 확인한다.</p>
+<h2 id="section-5">5. 첫 주 완료 기준</h2>
+<ul>
+<li>팀원이 공통 안내만으로 환경을 준비하고 공식 예제를 실행할 수 있다.</li>
+<li>세 과제의 확정 기준 JSON·원본 로그·파일 해시를 찾을 수 있다.</li>
+<li>full과 smoke, 수치 모델 결과가 명확히 구분된다.</li>
+<li>invsqrt·DQI·dfthcsos의 제출 구조를 점검한 ZIP 초안이 있다.</li>
+<li>지우·예찬과 후보 전달 형식을 합의하고, 소연이 기준 기록을 독립 확인한다.</li>
+</ul>
+<p>웹 대시보드는 계획·가이드·확정 결과를 읽는 공간이다. 실제 회로 생성과 검증은 로컬 공통 작업 폴더에서 실행한다.</p><p><a href="seojin.md" download>Markdown 가이드 내려받기</a></p></article><aside class="toc" aria-label="가이드 목차"><strong>ON THIS PAGE</strong><a href="#section-1">1. 먼저 확인할 기준 결과</a><a href="#section-2">2. 실행 환경 확인</a><a href="#section-3">3. 세 과제 검증과 기록</a><a href="#section-4">4. 후보를 전달받을 때</a><a href="#section-5">5. 첫 주 완료 기준</a></aside></div><footer class="footnote"><span>팀 실행 제안 · 기준 검증 기록 2026.11.07</span><span><a href="https://github.com/ys06146/quantum-team-dashboard">GitHub 저장소 ↗</a> · <a href="../resources.html">자료 출처</a></span></footer></main></div></body></html>

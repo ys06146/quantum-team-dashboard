@@ -1,0 +1,78 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="referrer" content="no-referrer"><meta name="description" content="다섯 명의 양자 회로 팀을 위한 3주 실행 계획, 개인별 가이드와 공식 기준 예제 검증 기록."><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'"><title>예찬 가이드 · Quantum Team</title><link rel="stylesheet" href="../assets/styles.css"><script src="../assets/app.js" defer></script></head><body><div class="shell">
+<aside class="sidebar"><a class="brand" href="../index.html"><span class="brand-mark" aria-hidden="true">Q</span><span>Quantum Team<small>CIRCUIT COMPILATION</small></span></a><button class="menu-button" type="button" aria-controls="site-nav" aria-expanded="false">메뉴</button><div class="side-caption">TEAM WORKSPACE</div><nav class="side-nav" id="site-nav" aria-label="대시보드"><a href="../index.html"><span class="nav-no">01</span>전체 현황</a><a href="../plan.html"><span class="nav-no">02</span>3주 계획 · 역할</a><a href="../guides.html" aria-current="page"><span class="nav-no">03</span>개인별 가이드</a><a href="../results.html"><span class="nav-no">04</span>검증 결과</a><a href="../resources.html"><span class="nav-no">05</span>자료 · 실행 안내</a></nav><div class="side-bottom"><strong>Google Quantum AI</strong>5인 팀 · 3주 실행안<br>2026.11.09 — 11.29</div></aside>
+<main class="content"><div class="topline"><span>팀 워크스페이스 / 예찬 가이드</span><span>업데이트 2026.11.08</span></div><div class="page-head"><span class="eyebrow">WEEK 01 / MECHANICAL ENGINEERING</span><h1>예찬 · 역제곱근 · 수치해석</h1><p>근사식과 비트 폭의 정확도·연산량을 비교해요.</p></div><div class="reading-note">실행 명령은 본인 PC에서 사용해요. 먼저 PowerShell에서 <code>$ProjectRoot = 'C:\경로\jjeya'</code>를 실제 팀 작업 폴더 경로로 바꾸어 설정하세요. 웹 링크는 가이드·결과·자료 안내로 연결됩니다.</div><div class="doc-layout"><article class="document"><p class="doc-title">예찬 · Week 1 실험 시작 안내</p>
+<p>예찬이 직접 할 일은 <strong>역제곱근 근사와 고정소수점 비트 폭의 후보를 만들고, 정확도와 회로 비용을 함께 비교하는 것</strong>이다. 서진이 준비한 공통 환경과 공식 검증기를 그대로 사용하면 된다.</p>
+<h2 id="section-1">1. 먼저 이 순서로 파일 보기</h2>
+<div class="table-wrap"><table><thead><tr><th>순서</th><th>파일</th><th>무엇을 확인하고 어떻게 쓰나</th></tr></thead><tbody>
+<tr><td>1</td><td><a href="../results.html">검증 결과 요약</a></td><td>세 공식 기본 예제의 실제 상태·검증 범위·비용을 읽는다. 후보 비교의 출발점이다.</td></tr>
+<tr><td>2</td><td><a href="../resources.html#environment">공통 환경 README</a></td><td>실행 위치, Python 경로, 폴더 구조를 확인한다. 개인 PC의 Python 3.12 환경을 먼저 확인한다.</td></tr>
+<tr><td>3</td><td><a href="../resources.html#team-files">실험 실행 도구</a></td><td>비트 폭을 인자로 바꿔 전 입력 수치 모델 검사와 후보 <code>.kmb</code> 생성을 한다.</td></tr>
+<tr><td>4</td><td><a href="../resources.html#official-files">공식 역제곱근 참조 코드</a></td><td><code>Precision</code> → <code>fixed_point_model</code> → <code>relative_error</code> → <code>build_nr_circuit</code> 순서로 읽는다. 계산 방식과 회로 생성이 연결되는 지점이다.</td></tr>
+<tr><td>5</td><td><a href="../resources.html#official-files">공식 역제곱근 검증기</a></td><td><code>ProblemSpecInvSqrt</code>, <code>validate_registers</code>, <code>verify</code>를 읽고 입력·보조 큐비트·위상 검사와 비용 계산을 이해한다.</td></tr>
+<tr><td>6</td><td><a href="../resources.html#team-files">기본 수치 모델 결과</a></td><td>기본 비트 폭, 최악 입력, 상대오차, 큐비트 수, 정적 Toffoli 수를 확인한다.</td></tr>
+<tr><td>7</td><td><a href="../resources.html#team-files">재생성한 기본 회로</a></td><td>직접 읽는 텍스트가 아니라 검증기에 넣는 바이너리다. 공식 예제와 같은 회로인지 해시로 확인한다.</td></tr>
+</tbody></table></div>
+<p>공식 배포 원본은 <code>vendor/competition</code>에 있다. 그 안의 코드를 직접 덮어쓰면 기준 비교가 깨지므로, 수식이나 회로 로직을 바꿀 때는 <code>artifacts/candidates/yechan</code> 아래에 복사본을 만든다. 비트 폭만 바꾸는 첫 실험은 복사 없이 제공된 실험 도구로 가능하다.</p>
+<h2 id="section-2">2. 지금 바로 실행하기</h2>
+<p>먼저 <a href="jiwoo.html#section-2">지우 가이드의 환경 준비</a>로 개인 Python 3.12 환경과 <code>$Py</code>를 설정한다. 아래 명령은 그 PowerShell 창에서 실행한다.</p>
+<p>PowerShell에서 다음 두 줄을 먼저 실행한다. 이하 명령은 모두 <code>week1</code>을 기준으로 한다.</p>
+<pre><code>Set-Location -LiteralPath (Join-Path $ProjectRoot &#x27;seojin_work\week1&#x27;)
+$env:PYTHONUTF8 = &#x27;1&#x27;</code></pre>
+<p>환경 확인과 빠른 기준 예제 확인:</p>
+<pre><code>&amp; $Py scripts\environment_check.py
+&amp; $Py scripts\run_baselines.py --tasks invsqrt --profile smoke</code></pre>
+<p>초기 기준 환경은 Python 3.12.4, kickmix 1.0.0, NumPy 2.2.6, SciPy 1.15.3이었다. 공유 가상환경에는 기반 Python 버전 변경 이력이 있으므로 지우 가이드 2절대로 개인 PC의 Python 3.12 환경을 준비하고 $Py를 사용한다. <code>Activate.ps1</code> 없이 위 경로의 Python을 직접 사용한다. <code>smoke</code>는 x=1..4096만 검사하므로 전체 통과로 해석하면 안 된다.</p>
+<h2 id="section-3">3. 기준값을 먼저 이해하기</h2>
+<p>공식 입력은 <code>n_p=10</code>, 22비트 x 레지스터, <code>1 ≤ x ≤ 3,133,452</code>이다. 회로는 x를 보존하면서 역제곱근에 해당하는 위상을 적용하고, 사용한 보조 큐비트를 0으로 돌려놓아야 한다.</p>
+<p>공식 참조 알고리즘은 x를 정규화해 M을 [1,4)로 옮기고, 네 구간의 3차 다항식으로 초기 근사를 만든 뒤 Newton–Raphson 보정을 한다. 역연산으로 보조 상태를 지우는 과정까지 회로 비용에 들어간다.</p>
+<div class="table-wrap"><table><thead><tr><th>설정</th><th>기본값</th><th>예찬이 살펴볼 내용</th></tr></thead><tbody>
+<tr><td><code>delta_bits</code></td><td>14</td><td>구간 내 delta의 절삭 정밀도</td></tr>
+<tr><td><code>coef_bits</code></td><td>17</td><td>다항식 계수와 Horner 중간값의 정밀도</td></tr>
+<tr><td><code>square_bits</code></td><td>28</td><td>초기 근사값 제곱의 정밀도</td></tr>
+<tr><td><code>product_bits</code></td><td>28</td><td>M과 제곱값의 곱, 보정항의 정밀도</td></tr>
+<tr><td><code>result_bits</code></td><td>29</td><td>마지막 곱의 정밀도</td></tr>
+</tbody></table></div>
+<p>기본 수치 모델은 3,133,452개 입력을 모두 검사했다. 최대 상대오차는 약 <code>2.8426147154e-8</code>, 최악 입력은 <code>x=2,588,411</code>, 허용오차 <code>2^-24 ≈ 5.9604644775e-8</code>의 약 47.69%다. 생성 회로는 260큐비트, 정적 Toffoli-like 7,735개다. 이 정적 개수는 위상 회전 합성 비용까지 포함한 공식 <code>score</code>와 다르다.</p>
+<h2 id="section-4">4. 첫 후보 만들기</h2>
+<p>한 번에 비트 폭 하나만 바꾼다. 아래는 <code>coef_bits=16</code>을 조사하는 명령 예시이며, 개선이나 통과를 보장하는 추천값이 아니다.</p>
+<p>먼저 수치 모델만 확인한다:</p>
+<pre><code>&amp; $Py scripts\invsqrt_lab.py --coef-bits 16 --model-only --output artifacts\candidates\yechan\coef16_model_new.kmb</code></pre>
+<p>이 명령은 <code>.kmb</code>를 만들지 않고 <code>coef16_model.model.json</code>만 만든다. <code>model_within_tolerance</code>, <code>worst_relative_error</code>, <code>worst_x</code>, <code>error_over_tolerance</code>를 확인한다. 오버플로 예외나 허용오차 초과가 나오면 해당 조건을 실패 실험으로 기록한다.</p>
+<p>수치 모델이 통과하면 다른 이름으로 회로를 생성한다:</p>
+<pre><code>&amp; $Py scripts\invsqrt_lab.py --coef-bits 16 --output artifacts\candidates\yechan\coef16_circuit.kmb</code></pre>
+<p>기존 파일을 덮어쓰지 않도록 도구가 막아둔 상태다. 재실험할 때는 새 이름을 사용한다. 출력된 <code>.model.json</code>의 <code>official_verification: NOT_RUN</code>은 정상이다. 아직 공식 회로 검증을 실행하지 않았다는 뜻이다.</p>
+<p>후보의 빠른 검증과 전체 검증:</p>
+<pre><code>&amp; $Py scripts\run_baselines.py --tasks invsqrt --profile smoke --invsqrt-file artifacts\candidates\yechan\coef16_circuit.kmb
+&amp; $Py scripts\run_baselines.py --tasks invsqrt --profile full --invsqrt-file artifacts\candidates\yechan\coef16_circuit.kmb --invsqrt-workers 8</code></pre>
+<p>Windows 병렬 옵션 <code>--invsqrt-workers 8</code>은 <a href="../resources.html#team-files">실행 어댑터</a>를 사용한다. 원본 검증기의 작업·샷 수·배치·난수 시드와 검사·비용 계산을 유지하면서 작업을 여러 프로세스에 배분한다. 각 프로세스는 부모와 작업·시드가 동일한지 검사한다. 옵션을 빼면 공식 CLI의 순차 실행을 사용한다. 메모리나 CPU 여유가 적으면 2~4로 낮춘다.</p>
+<h2 id="section-5">5. 정확도 실험에서 반드시 볼 지점</h2>
+<ul>
+<li>정규화 구간이 바뀌는 4의 거듭제곱 주변과 최소·최대 입력을 확인한다.</li>
+<li>정규화한 M의 구간 경계 1, 1.5, 2, 3, 4 주변에서 양쪽의 정수 입력을 비교한다.</li>
+<li>계수의 반올림뿐 아니라 곱셈에서 버려지는 부분곱 비트까지 <code>fixed_point_model</code>로 확인한다.</li>
+<li>수식이나 다항식 계수를 바꾸면 수치 모델과 회로 생성 코드가 같은 계산을 하는지 함께 수정·검증한다.</li>
+<li>후보 평가는 허용오차 이내인지를 먼저 확인하고, 통과한 후보끼리 공식 <code>score</code>가 낮은지 비교한다.</li>
+</ul>
+<h2 id="section-6">6. 결과를 이렇게 읽기</h2>
+<div class="table-wrap"><table><thead><tr><th>결과</th><th>의미</th><th>다음 행동</th></tr></thead><tbody>
+<tr><td><code>model_within_tolerance: true</code></td><td>고정소수점 수치 근사가 전체 입력에서 허용오차 이내</td><td>실제 회로 검증을 진행한다.</td></tr>
+<tr><td><code>smoke / PASS</code></td><td>축소 입력·샷 조건에서 회로 동작 확인</td><td>full 검증으로 넘어간다.</td></tr>
+<tr><td><code>full / PASS</code></td><td>명시된 전체 문제 조건에서 공식 검증을 통과</td><td>같은 기준 회로의 full 비용과 비교한다.</td></tr>
+<tr><td><code>FAIL</code> 또는 <code>ERROR</code></td><td>원본 로그의 원인 확인 필요</td><td>회로 실패인지, 경로·환경 오류인지 구분해 기록한다.</td></tr>
+</tbody></table></div>
+<p>실행 결과는 <code>reports/runs/&lt;시각&gt;-&lt;profile&gt;/invsqrt.json</code>, 원본 출력은 대응하는 <code>logs/&lt;시각&gt;-&lt;profile&gt;/invsqrt.log</code>에 남는다. JSON의 <code>input_files</code>, <code>command</code>, <code>verification_scope</code>, <code>official_result</code>를 함께 읽는다. <code>latest-full.json</code>은 가장 최근 실행을 가리키므로 예전 기준값은 <a href="../results.html">검증 요약의 고정 링크</a>를 사용한다.</p>
+<p>공식 invsqrt 비용은 큐비트 수 × Toffoli 등가 비용이다. 회전 합성에 남는 오차 여유도 비용에 영향을 주므로 큐비트나 정적 Toffoli 수만 보고 개선을 선언하지 않는다. <code>worst_error_over_tolerance</code>는 1에 가까울수록 여유가 적다. 로컬 PASS는 해당 시드에서의 검증 결과이며 Kaggle 제출·리더보드 평가를 완료했다는 뜻이 아니다.</p>
+<h2 id="section-7">7. 서진에게 넘길 파일</h2>
+<ul>
+<li>후보 회로 <code>.kmb</code>와 그것을 만든 코드 또는 실행 명령.</li>
+<li>같은 실험의 <code>.model.json</code> 및 전체 검증 <code>invsqrt.json</code>.</li>
+<li>대응하는 원본 <code>.log</code>와 변경한 비트 폭·수식의 짧은 설명.</li>
+<li>기준 대비 공식 비용, 큐비트 수, 최악 오차, 실행 시간, 통과 여부를 적은 비교표.</li>
+</ul>
+<p>기록 양식은 <a href="../resources.html#team-files">실험 기록 템플릿</a>을 복사해 사용한다. 예찬은 수치 후보와 그 근거를 만들고, 서진은 공통 실행·회로 통합·제출 패키징을 담당한다. 검증 재확인은 소연과 공유하면 된다. 여기서 자동으로 대회 제출을 하지는 않는다.</p>
+<h2 id="section-8">8. 다른 두 예제는 언제 보나</h2>
+<div class="table-wrap"><table><thead><tr><th>과제</th><th>기본 입력</th><th>코드·결과 활용</th></tr></thead><tbody>
+<tr><td>DQI</td><td><a href="../resources.html#official-files">dqi.kmb</a></td><td>약 886MB 바이너리다. <a href="../resources.html#official-files">공식 검증기</a>와 <a href="../resources.html#official-files">참조 생성 코드</a>를 통해 팀의 다른 과제 흐름을 파악한다. 첫 역제곱근 실험에는 필요 없다.</td></tr>
+<tr><td>DFTHC-SOS</td><td><a href="../resources.html#official-files">submission.npz</a>와 <code>angle_k_0.kmb</code>~<code>angle_k_9.kmb</code></td><td>한 묶음으로 검증한다. <a href="../resources.html#official-files">공식 설명</a>에서 수치 근사와 회로 비용이 결합되는 방식을 읽는다.</td></tr>
+</tbody></table></div>
+<p>전체 배포 파일과 검증기의 출처는 <a href="https://www.kaggle.com/competitions/google-verifiable-quantum-circuit-compilation/data">공식 Kaggle Data</a>다. 다운로드 당시 ZIP과 파일별 SHA-256은 <a href="../results.html">무결성 기록</a>에 남아 있다.</p><p><a href="yechan.md" download>Markdown 가이드 내려받기</a></p></article><aside class="toc" aria-label="가이드 목차"><strong>ON THIS PAGE</strong><a href="#section-1">1. 먼저 이 순서로 파일 보기</a><a href="#section-2">2. 지금 바로 실행하기</a><a href="#section-3">3. 기준값을 먼저 이해하기</a><a href="#section-4">4. 첫 후보 만들기</a><a href="#section-5">5. 정확도 실험에서 반드시 볼 지점</a><a href="#section-6">6. 결과를 이렇게 읽기</a><a href="#section-7">7. 서진에게 넘길 파일</a><a href="#section-8">8. 다른 두 예제는 언제 보나</a></aside></div><footer class="footnote"><span>팀 실행 제안 · 기준 검증 기록 2026.11.07</span><span><a href="https://github.com/ys06146/quantum-team-dashboard">GitHub 저장소 ↗</a> · <a href="../resources.html">자료 출처</a></span></footer></main></div></body></html>

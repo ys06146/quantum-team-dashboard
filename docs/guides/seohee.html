@@ -1,0 +1,129 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="referrer" content="no-referrer"><meta name="description" content="다섯 명의 양자 회로 팀을 위한 3주 실행 계획, 개인별 가이드와 공식 기준 예제 검증 기록."><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'"><title>서희 가이드 · Quantum Team</title><link rel="stylesheet" href="../assets/styles.css"><script src="../assets/app.js" defer></script></head><body><div class="shell">
+<aside class="sidebar"><a class="brand" href="../index.html"><span class="brand-mark" aria-hidden="true">Q</span><span>Quantum Team<small>CIRCUIT COMPILATION</small></span></a><button class="menu-button" type="button" aria-controls="site-nav" aria-expanded="false">메뉴</button><div class="side-caption">TEAM WORKSPACE</div><nav class="side-nav" id="site-nav" aria-label="대시보드"><a href="../index.html"><span class="nav-no">01</span>전체 현황</a><a href="../plan.html"><span class="nav-no">02</span>3주 계획 · 역할</a><a href="../guides.html" aria-current="page"><span class="nav-no">03</span>개인별 가이드</a><a href="../results.html"><span class="nav-no">04</span>검증 결과</a><a href="../resources.html"><span class="nav-no">05</span>자료 · 실행 안내</a></nav><div class="side-bottom"><strong>Google Quantum AI</strong>5인 팀 · 3주 실행안<br>2026.11.09 — 11.29</div></aside>
+<main class="content"><div class="topline"><span>팀 워크스페이스 / 서희 가이드</span><span>업데이트 2026.11.08</span></div><div class="page-head"><span class="eyebrow">WEEK 01 / CHEMISTRY</span><h1>서희 · 화학 해석 · 근사 검토</h1><p>화학 지표를 해석하고 지우의 근사 후보를 검토해요.</p></div><div class="reading-note">실행 명령은 본인 PC에서 사용해요. 먼저 PowerShell에서 <code>$ProjectRoot = 'C:\경로\jjeya'</code>를 실제 팀 작업 폴더 경로로 바꾸어 설정하세요. 웹 링크는 가이드·결과·자료 안내로 연결됩니다.</div><div class="doc-layout"><article class="document"><p class="doc-title">서희 · Week 1 화학 과제 시작 가이드</p>
+<p>작성일: 2026-11-08 · 대상: 화학 전공 담당 · 첫 주 제안 일정: 11/09–11/15</p>
+<p><strong>서희의 첫 주 목표는 DFTHC-SOS의 화학 문제와 공식 평가 지표를 이해하고, 기준 결과를 설명한 뒤 지우와 다음 실험 가설 두 개를 정하는 것이다.</strong> 팀 계획의 ‘서희’에 해당한다.</p>
+<p>가장 먼저 <a href="../resources.html#official-files">공식 화학 설명</a>을 읽고 → <a href="../results.html#dfthcsos">기준 full 검증 JSON</a>을 확인하고 → <a href="jiwoo.html">지우의 작업 가이드</a>에서 실제 실험 흐름을 보면 된다. 문서와 저장된 결과 검토는 별도 설치 없이 시작할 수 있다.</p>
+<h2 id="section-1">1. 서희가 맡는 일과 협업 범위</h2>
+<div class="table-wrap"><table><thead><tr><th>담당</th><th>직접 맡는 일</th><th>서로 주고받을 내용</th></tr></thead><tbody>
+<tr><td>서희</td><td>화학 문제·데이터 의미 설명, 오차·에너지 지표 해석, 근사 후보 검토, 화학 분석 문단 작성</td><td>지우에게 가설과 해석, 소연에게 판단 근거, 서진에게 확인할 파일·설정</td></tr>
+<tr><td>지우</td><td>수치 파라미터·각도·트리 후보와 생성 코드 작성</td><td>서희와 가설을 합의하고 모델·회로 결과를 제공</td></tr>
+<tr><td>서진</td><td>공통 실행, 회로 통합, 파일·버전·검증 로그 관리</td><td>후보가 실제 회로에서도 통과하는지 확인</td></tr>
+<tr><td>소연</td><td>기준선과 후보의 독립 비교, 채택 근거 정리</td><td>서희의 지표 해석과 검증 결과를 대조</td></tr>
+<tr><td>예찬</td><td>역제곱근 근사·비트 폭·경계 오차 실험</td><td>다른 과제의 수치 오차 분석 방법을 공유</td></tr>
+</tbody></table></div>
+<p>양자화학·계산화학 경험이 적으면 용어, 단위, 공식 조건, 결과 읽기부터 시작한다. 경험이 있으면 지우와 분해·양자화 가설 설계까지 확장한다. <a href="../plan.html">팀 전체 계획</a>에서 3주 흐름도 확인할 수 있다.</p>
+<h2 id="section-2">2. 어떤 파일부터 읽어야 하나</h2>
+<p>아래 링크는 <code>seohee_work/week1</code>에서 공통 자료로 연결된다. 웹 링크는 공개 가이드·결과·자료 안내로 연결된다. 실제 실험에서는 <code>jjeya</code> 폴더 배치를 유지한다. <code>.md</code>·<code>.py</code>·<code>.json</code>은 편집기로, <code>.html</code>은 브라우저로 연다.</p>
+<div class="table-wrap"><table><thead><tr><th>순서</th><th>파일</th><th>읽을 부분</th><th>읽고 남길 내용</th></tr></thead><tbody>
+<tr><td>1 · 필수</td><td><a href="../resources.html#official-files">SCORING_README.md</a></td><td>System, Submission files, Worked example, Scoring</td><td>어떤 고정 문제를 근사하고 무엇을 제출·평가하는지 5문장으로 정리</td></tr>
+<tr><td>2 · 필수</td><td><a href="../results.html#dfthcsos">화학 full 결과 JSON</a> · <a href="../results.html">전체 결과 요약</a></td><td><code>official_result.metrics</code>, <code>resources</code>, <code>score</code>, <code>verified_shots</code>, <code>submission_sha256</code></td><td>기준 지표·단위·통과 조건·오차 여유를 표로 기록</td></tr>
+<tr><td>3 · 필수</td><td><a href="jiwoo.html">JIWOO_GUIDE.html</a> · <a href="jiwoo.html">같은 내용의 Markdown</a></td><td>1·3·6·7절: 데이터, 실험 방향, 전달할 묶음</td><td>지우의 구현 업무와 서희의 해석·검토 업무를 구분하고 협업 메모 작성</td></tr>
+<tr><td>4 · 데이터</td><td><a href="../resources.html#official-files">reference.py</a> · <a href="../resources.html#official-files">FCIDUMP</a></td><td>기준 오비탈·전자 수, 적분 로딩, 고정 shift, <code>UPPER_ENERGY</code></td><td>전자·오비탈·1전자/2전자 적분·기준 에너지의 데이터 사전 작성</td></tr>
+<tr><td>5 · 데이터</td><td><a href="../resources.html#official-files">submission.npz</a></td><td>지우 가이드 3절의 NumPy 읽기 예제로 배열명·형상 확인</td><td>U, W, H2_I, tree_edges, angle_words가 어떤 입력인지 연결해 설명</td></tr>
+<tr><td>6 · 판정 근거</td><td><a href="../resources.html#official-files">verify.py</a> · <a href="../resources.html#official-files">dfthc_math.py</a></td><td><code>evaluate_words</code>, <code>passes_accuracy</code>, <code>score_from_metrics</code>, <code>evaluate_dfthc_vectors</code></td><td>오차 정의와 단위, 부등호, E_SOS·E_gap·lambda_eff 관계를 원문과 대조</td></tr>
+<tr><td>7 · 지우와 함께</td><td><a href="../resources.html#official-files">ANGLE 참조 생성기</a> · <a href="../resources.html#official-files">costs_prepare.py</a></td><td>brot·J, 각도 로딩, 전체 자원 비용</td><td>정밀도 변경이 수치 오차와 회로 비용에 어떻게 영향을 줄지 가설 두 개 작성</td></tr>
+</tbody></table></div>
+<p>FCIDUMP는 약 128MB이므로 먼저 <code>reference.py</code>와 설명서를 읽는다. NPZ와 KMB는 바이너리이며 전용 도구로 읽는다. 실제 회로 실행이 필요하면 지우 가이드 2절의 <strong>개인 PC용 Python 3.12 환경</strong>을 준비한다. 공유 <code>.venv</code>는 기반 Python 버전 불일치 이력이 있으므로 기존 폴더만 보고 실행 가능하다고 판단하지 않는다.</p>
+<h2 id="section-3">3. 이해해야 할 문제와 데이터</h2>
+<p>공식 대상은 <strong>FeMoCo76o113e: 공간 오비탈 76개, 전자 113개</strong>다. 주어진 해밀토니안을 근사한 수치 데이터와, 그 데이터를 각도로 로딩하는 회로가 함께 평가된다. 공식 FCIDUMP·전자 수·기준 에너지·고정 shift를 평가 기준으로 사용한다.</p>
+<div class="table-wrap"><table><thead><tr><th>항목</th><th>기준 구조</th><th>서희가 설명할 내용</th></tr></thead><tbody>
+<tr><td>R / B / C</td><td>65 / 60 / 60</td><td>제공된 분해의 크기 파라미터. 바꾸면 재구성 오차와 자원 비용을 함께 확인</td></tr>
+<tr><td>U</td><td>(65, 60, 76)</td><td>제출 벡터의 형상. 실제 평가는 회로에서 읽은 각도로 복원한 벡터를 사용</td></tr>
+<tr><td>W / H2_I</td><td>분해 가중치·수치 파라미터</td><td>각도에서 복원한 벡터와 함께 해밀토니안 근사에 들어가는 값</td></tr>
+<tr><td>H1_I / Hsym_lower</td><td>NPZ에 포함</td><td>공식 평가는 제공된 고정 shift를 사용하며, 제출된 이 값들을 그대로 채점에 사용하지 않음</td></tr>
+<tr><td>tree_edges</td><td>(75, 2)</td><td>각도 단어에서 76차원 벡터를 복원하는 트리 순서</td></tr>
+<tr><td>angle_words</td><td>(3976, 75)</td><td>76개 one-body 행과 R×B개 two-body 행의 정수 각도 표. 샘플 NPZ의 회로 생성 보조 자료</td></tr>
+<tr><td>brot / J</td><td>12 / 8</td><td>각도 단어 비트 수 / 회로 한 개가 처리하는 단어 수</td></tr>
+<tr><td>ANGLE 회로</td><td>10개</td><td><code>ceil(75 / J)</code>개. 대응 NPZ와 같은 설정에서 생성되어야 함</td></tr>
+</tbody></table></div>
+<p>각도 해석식은 <code>theta = pi × word / 2^(brot−1)</code>이다. 정밀도를 낮출 때는 실제 각도를 그 정밀도에 맞춰 다시 양자화한다. 기존 12비트 정수를 그대로 11비트로 해석하면 각도 자체가 달라진다.</p>
+<h2 id="section-4">4. 기준 결과와 공식 통과 조건</h2>
+<p>아래 값은 <strong>2026-11-07 공식 화학 예제의 로컬 full PASS 기록</strong>이다. 표시값은 반올림했으며 정확한 비교에는 원본 JSON을 사용한다. 이 문서를 만들면서 새 후보를 실행하거나 대회에 제출한 것은 아니다.</p>
+<div class="table-wrap"><table><thead><tr><th>지표</th><th>기준값</th><th>의미와 판정 기준</th></tr></thead><tbody>
+<tr><td>error_1</td><td>0.00318519503 Ha</td><td>1전자 성분 재구성 잔차. <code>≤ 0.020 Ha</code>.</td></tr>
+<tr><td>error_2</td><td>0.01863957063 Ha</td><td>2전자 적분 재구성 잔차. <code>≤ 0.020 Ha</code>.</td></tr>
+<tr><td>Lambda</td><td>308.45593973309 Ha</td><td>LCU 정규화 계수. <code>&gt; 49.0</code>을 엄격하게 만족.</td></tr>
+<tr><td>E_SOS</td><td>-22144.23882724429 Ha</td><td>DFTHC 해밀토니안의 SOS 에너지 하한.</td></tr>
+<tr><td>E_gap</td><td>3.96547724429 Ha</td><td><code>E_upper − E_SOS</code>. <code>&gt; 3.914898 Ha</code>와 공식 <code>gap_in_domain</code> 검사 충족.</td></tr>
+<tr><td>lambda_eff</td><td>49.30136925057 Ha</td><td><code>sqrt(E_gap × (2 Lambda − E_gap))</code>. 유한값이어야 함.</td></tr>
+<tr><td>전체 Toffoli / 전체 큐비트</td><td>93,237 / 730</td><td>전체 블록 인코딩 자원. 개별 ANGLE 자원과 구분.</td></tr>
+<tr><td>공식 로컬 비용 score</td><td>3,355,599,588.3155375</td><td><code>lambda_eff × 전체 Toffoli × 전체 큐비트</code>. 같은 과제에서 낮을수록 유리.</td></tr>
+</tbody></table></div>
+<p><code>error_1</code>과 <code>error_2</code>는 재구성 잔차의 Frobenius norm이다. 실제 바닥상태 에너지 오차와 같은 값으로 해석하지 않는다. <code>E_gap</code>은 고정 <code>E_upper</code>와 SOS 하한의 차이이며 들뜬 상태와 바닥상태의 에너지 차이를 직접 계산한 값이 아니다.</p>
+<p><strong>현재 error_2의 남은 여유는 약 0.00136043 Ha, 즉 1.36043 mHa</strong>다. 허용치의 약 93.2%를 이미 사용하므로 정밀도를 낮추는 실험에서 특히 확인할 지표다. 이 여유만으로 후보의 전체 통과를 예측할 수는 없다.</p>
+<p>기준 회로 검증은 주소당 64 shots, 총 254,464 shots를 사용했다. ANGLE 회로의 큐비트 수는 119, 전체 비용식의 큐비트 수는 730이다. 각 ANGLE 회로의 한도는 128큐비트다. 수치 모델 통과, 축소 smoke 통과, 전체 full 통과를 나눠 기록한다.</p>
+<h2 id="section-5">5. 오늘 바로 해볼 결과 읽기</h2>
+<p>PowerShell에서 아래 명령은 저장된 JSON만 읽는다. 화학 시뮬레이션이나 패키지 설치를 실행하지 않는다. 드라이브 문자가 다르면 <code>$ProjectRoot</code>에 본인 PC의 jjeya 폴더 경로를 지정한다.</p>
+<pre><code>Set-Location -LiteralPath (Join-Path $ProjectRoot &#x27;seohee_work\week1&#x27;)
+$SeoheeBaselinePath = &#x27;..\..\seojin_work\week1\reports\runs\20261107T091146680709Z-full\dfthcsos.json&#x27;
+$SeoheeReport = Get-Content -LiteralPath $SeoheeBaselinePath -Raw -Encoding UTF8 | ConvertFrom-Json
+$SeoheeMetrics = $SeoheeReport.official_result.metrics
+
+$SeoheeMetrics | Format-List
+[pscustomobject]@{
+    Status = $SeoheeReport.official_result.status
+    Score = $SeoheeReport.official_result.score
+    VerifiedShots = $SeoheeReport.official_result.verified_shots
+    Error1Margin_mHa = (0.020 - $SeoheeMetrics.error_1) * 1000
+    Error2Margin_mHa = (0.020 - $SeoheeMetrics.error_2) * 1000
+    SubmissionSHA256 = $SeoheeReport.official_result.submission_sha256
+} | Format-List</code></pre>
+<p>출력에서 PASS, 254,464 shots, error_2 여유 약 1.36043 mHa를 확인하고 <code>baseline_review.md</code>에 기록한다. <code>submission_sha256</code>은 공식 검증기가 정의한 전체 제출 묶음의 해시이며 JSON 파일 자체의 해시와 구분한다.</p>
+<p>NPZ 배열을 직접 확인하거나 수치 모델을 다시 평가할 때는 <a href="jiwoo.html">지우 가이드</a>의 2~4절을 순서대로 따른다. 그 실행 명령의 작업 위치는 <code>seojin_work/week1</code>이며, 이 가이드의 메모 작성 위치인 <code>seohee_work/week1</code>과 다르다.</p>
+<h2 id="section-6">6. 첫 주 작업 순서와 완료 기준</h2>
+<p>일정은 제안이며 첫 주 말까지 아래 세 파일과 가설 두 개를 남기는 것이 목표다.</p>
+<div class="table-wrap"><table><thead><tr><th>단계</th><th>직접 할 일</th><th>완료 기준</th></tr></thead><tbody>
+<tr><td>시작</td><td>1~3번 파일을 읽고 문제·평가 흐름 요약</td><td>팀원이 읽고 어떤 입력을 근사하며 무엇을 제출하는지 이해할 수 있음</td></tr>
+<tr><td>데이터 확인</td><td>4~5번 파일에서 상수·배열·단위를 확인</td><td>오비탈·전자 수, NPZ와 각도·회로 관계를 설명 가능</td></tr>
+<tr><td>지표 대조</td><td>6번 코드와 기준 JSON을 비교</td><td>각 지표의 의미·단위·정확한 부등호와 기준의 여유를 기록</td></tr>
+<tr><td>가설 작성</td><td>지우와 변경 변수 하나씩인 가설 두 개 작성</td><td>변수·예상 효과·위험 지표·확인 방법이 모두 있음</td></tr>
+<tr><td>주말 검토</td><td>지우·소연과 메모를 대조하고 서진에게 확인 사항 전달</td><td>세 파일에 근거 경로가 있고 해석이 원본과 일치</td></tr>
+</tbody></table></div>
+<p><strong>첫 주 완료 체크:</strong> 문제 설명 1장, 공식 지표표, 기준 결과 검토 메모, 가설 2개, 동료 검토 의견이 모두 남아 있어야 한다. 저장된 기준 결과를 읽은 것과 본인이 새로 실행한 결과를 구분해서 적는다.</p>
+<h2 id="section-7">7. 작성할 세 파일과 목차</h2>
+<p>아래 파일은 서희가 앞으로 작성할 산출물이다. 현재 제공된 HTML·Markdown 가이드와 구분한다. 저장 위치는 모두 <code>seohee_work/week1</code>이다.</p>
+<div class="table-wrap"><table><thead><tr><th>작성할 파일</th><th>넣을 내용</th><th>검토자</th></tr></thead><tbody>
+<tr><td><code>chemistry_problem_brief.md</code></td><td>대상 문제, 76오비탈·113전자, 해밀토니안과 적분, 분해→각도→회로 흐름, 고정 입력과 근사 변수, 출처</td><td>지우</td></tr>
+<tr><td><code>chemistry_metrics.md</code></td><td>error_1/2, Lambda, E_SOS, E_gap, lambda_eff, score의 정의·단위·조건·기준값·코드 함수</td><td>소연</td></tr>
+<tr><td><code>baseline_review.md</code></td><td>기준 JSON 경로·제출 해시, full 상태·샷 수, 오차 여유, 해석, 가설 2개, 질문·다음 행동</td><td>지우·소연, 실행 확인은 서진</td></tr>
+</tbody></table></div>
+<p><code>baseline_review.md</code>의 시작 목차로 아래를 복사해 사용할 수 있다.</p>
+<pre><code># 화학 기준 결과 검토
+
+- 작성자 / 작성일:
+- 기준 JSON 경로:
+- 공식 submission_sha256:
+- 기록 종류: 저장된 기준 결과 검토 / 직접 재실행
+- full 상태 / shots:
+
+## 지표 해석과 오차 여유
+각 지표의 기준값, 조건, 여유, 코드 근거를 적는다.
+
+## 가설 1
+- 바꿀 변수와 비교 값:
+- 예상 효과와 이유:
+- 위험한 지표:
+- 지우에게 필요한 입력·실험:
+- 판정에 쓸 수치 모델·full 결과:
+
+## 가설 2
+위와 같은 항목으로 작성한다.
+
+## 동료 검토와 다음 행동
+- 확인한 사람 / 의견 / 수정 내용:
+- 남은 질문과 담당자:</code></pre>
+<h2 id="section-8">8. 지우와 논의할 첫 가설 두 개</h2>
+<div class="table-wrap"><table><thead><tr><th>가설 예시</th><th>서희가 확인할 내용</th><th>지우·서진에게 요청할 결과</th></tr></thead><tbody>
+<tr><td>각도 정밀도 12→11비트</td><td>올바르게 재양자화했는지, 특히 error_2 여유와 Lambda·E_gap 조건이 유지되는지</td><td>새 단어 표의 수치 지표, 대응 NPZ·ANGLE 회로, full 상태·전체 비용</td></tr>
+<tr><td>같은 12비트 각도에서 J=8→4</td><td>물리적 각도와 복원 벡터가 유지되는지, 수치 지표가 같을 것으로 예상되는 근거</td><td>회로 수·ANGLE 큐비트·전체 Toffoli·전체 큐비트·score 변화</td></tr>
+</tbody></table></div>
+<p>위 두 항목은 <strong>실험 제안</strong>이며 통과나 비용 개선이 확인된 후보가 아니다. 후보 채택은 공식 정확도 조건을 만족한 상태에서 전체 비용이 낮아지는지로 판단한다. J는 회로당 단어 묶음 크기이므로, 각도 정밀도 brot와 구분한다.</p>
+<h2 id="section-9">9. 누구에게 무엇을 전달하나</h2>
+<ul>
+<li><strong>지우:</strong> 문제·데이터 설명과 가설 두 개. 변경 변수, 예상 효과, 확인할 지표를 구체적으로 전달한다.</li>
+<li><strong>소연:</strong> 공식 지표표와 기준 검토 메모. 원본 JSON·코드 함수, 단위, 부등호, 오차 여유를 함께 전달한다.</li>
+<li><strong>서진:</strong> 실험에서 참조한 NPZ·ANGLE·트리의 경로와 설정, 제출 해시, 실행 환경이나 회로 대응에서 확인이 필요한 질문을 전달한다.</li>
+</ul>
+<p>후보를 검토할 때는 <code>실험 ID → 입력·생성 설정 → 수치 모델 결과 → full JSON·로그 → 판단</code>이 연결되게 남긴다. 원본 공식 파일을 수정하지 않고 실험별 복사본과 기록으로 비교한다.</p>
+<p>근거 자료는 공통 폴더의 공식 설명·검증 코드와 2026-11-07 full 결과다. 관련 안내: <a href="soyeon.html">소연 가이드</a>, <a href="yechan.html">예찬 가이드</a>, <a href="../results.html">공식 파일 무결성 기록</a>. 역할과 첫 주 일정은 팀 실행 제안이다.</p><p><a href="seohee.md" download>Markdown 가이드 내려받기</a></p></article><aside class="toc" aria-label="가이드 목차"><strong>ON THIS PAGE</strong><a href="#section-1">1. 서희가 맡는 일과 협업 범위</a><a href="#section-2">2. 어떤 파일부터 읽어야 하나</a><a href="#section-3">3. 이해해야 할 문제와 데이터</a><a href="#section-4">4. 기준 결과와 공식 통과 조건</a><a href="#section-5">5. 오늘 바로 해볼 결과 읽기</a><a href="#section-6">6. 첫 주 작업 순서와 완료 기준</a><a href="#section-7">7. 작성할 세 파일과 목차</a><a href="#section-8">8. 지우와 논의할 첫 가설 두 개</a><a href="#section-9">9. 누구에게 무엇을 전달하나</a></aside></div><footer class="footnote"><span>팀 실행 제안 · 기준 검증 기록 2026.11.07</span><span><a href="https://github.com/ys06146/quantum-team-dashboard">GitHub 저장소 ↗</a> · <a href="../resources.html">자료 출처</a></span></footer></main></div></body></html>

@@ -1,0 +1,213 @@
+<div id="quantum-team-plan" lang="ko">
+  <style>
+    #quantum-team-plan { color:var(--foreground); }
+    #quantum-team-plan .q-stack { display:grid; gap:calc(var(--font-size-base)*1); }
+    #quantum-team-plan .q-title { display:grid; gap:calc(var(--font-size-base)*.25); padding-right:90px; }
+    #quantum-team-plan .q-section { margin-top:calc(var(--font-size-base)*1.25); }
+    #quantum-team-plan .q-phases { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:calc(var(--font-size-base)*1); }
+    #quantum-team-plan .q-phase { display:grid; gap:calc(var(--font-size-base)*.25); }
+    #quantum-team-plan .q-track { height:4px; background:var(--viz-series-1); margin-bottom:calc(var(--font-size-base)*.25); }
+    #quantum-team-plan .q-phase:nth-child(2) .q-track { opacity:.7; }
+    #quantum-team-plan .q-phase:nth-child(3) .q-track { opacity:.4; }
+    #quantum-team-plan .q-matrix { min-width:610px; }
+    #quantum-team-plan .q-matrix th:first-child { width:16%; }
+    #quantum-team-plan .q-matrix td { width:28%; vertical-align:top; }
+    #quantum-team-plan .q-cell { display:grid; justify-items:start; gap:calc(var(--font-size-base)*.4); }
+    #quantum-team-plan .q-definition { display:grid; grid-template-columns:88px minmax(0,1fr); gap:calc(var(--font-size-base)*.6) calc(var(--font-size-base)*1); margin:0; }
+    #quantum-team-plan dt { font-weight:500; }
+    #quantum-team-plan dd { margin:0; overflow-wrap:anywhere; }
+    #quantum-team-plan .q-details { display:grid; gap:calc(var(--font-size-base)*.65); }
+    #quantum-team-plan .q-detail-heading { display:flex; flex-wrap:wrap; align-items:center; gap:calc(var(--font-size-base)*.5); }
+    #quantum-team-plan .q-role { display:grid; grid-template-columns:115px minmax(0,1fr); gap:calc(var(--font-size-base)*1); }
+    #quantum-team-plan .q-person { display:grid; align-content:start; gap:calc(var(--font-size-base)*.25); }
+    #quantum-team-plan .q-sources { display:flex; flex-wrap:wrap; gap:calc(var(--font-size-base)*.5) calc(var(--font-size-base)*1); }
+    #quantum-team-plan .q-checkpoints { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:calc(var(--font-size-base)*1); }
+    #quantum-team-plan .q-gate { display:grid; align-content:start; gap:calc(var(--font-size-base)*.35); }
+    #quantum-team-plan .q-steps { display:flex; flex-wrap:wrap; align-items:center; gap:calc(var(--font-size-base)*.5); }
+    #quantum-team-plan .q-sub { display:block; margin-top:calc(var(--font-size-base)*.25); }
+    #quantum-team-plan [role="tablist"] { flex-wrap:wrap; }
+    #quantum-team-plan .q-file-table { min-width:720px; }
+    #quantum-team-plan .q-review-list { margin:0; padding-left:calc(var(--font-size-base)*1.5); display:grid; gap:calc(var(--font-size-base)*.5); }
+    #quantum-team-plan [hidden] { display:none !important; }
+    @media(max-width:540px) {
+      #quantum-team-plan .q-title { padding-right:50px; }
+      #quantum-team-plan .q-role { grid-template-columns:1fr; }
+      #quantum-team-plan .q-checkpoints { grid-template-columns:1fr; }
+      #quantum-team-plan .q-definition { grid-template-columns:72px minmax(0,1fr); }
+    }
+  </style>
+
+  <div class="q-stack">
+    <header class="q-title">
+      <div class="text-small text-muted">GOOGLE QUANTUM AI · 5인 팀 · 첫 3주 스프린트</div>
+      <h2>검증부터 개선까지, 3주 실행안</h2>
+      <div class="text-small text-muted">제안 일정 2026.11.09–11.29 · 2026.11.08 서희 추가 · 전공 기반 역할 가설 · 양자 경험·가용시간 미확인</div>
+    </header>
+
+    <div class="nav nav-pills" role="tablist" aria-label="계획 보기">
+      <button class="nav-link active" id="q-tab-roadmap" type="button" role="tab" aria-controls="q-roadmap" aria-selected="true">3주 로드맵</button>
+      <button class="nav-link" id="q-tab-roles" type="button" role="tab" aria-controls="q-roles" aria-selected="false">개인별 분석·역할</button>
+      <button class="nav-link" id="q-tab-chemistry" type="button" role="tab" aria-controls="q-chemistry" aria-selected="false">서희 시작하기</button>
+      <button class="nav-link" id="q-tab-strategy" type="button" role="tab" aria-controls="q-strategy" aria-selected="false">대회 전략·제출 기준</button>
+    </div>
+
+    <section id="q-roadmap" role="tabpanel" aria-labelledby="q-tab-roadmap" class="q-stack">
+      <div class="q-phases" aria-label="3주 진행 단계">
+        <div class="q-phase"><div class="q-track"></div><div class="text-small text-muted">W1 · 11/09–11/15</div><h3>재현·기준 확정</h3><div class="text-small">세 과제 유효본 확보</div></div>
+        <div class="q-phase"><div class="q-track"></div><div class="text-small text-muted">W2 · 11/16–11/22</div><h3>후보 실험·선별</h3><div class="text-small">개선안 검증·통합</div></div>
+        <div class="q-phase"><div class="q-track"></div><div class="text-small text-muted">W3 · 11/23–11/29</div><h3>고정·재검증</h3><div class="text-small">재현 가능한 제출본</div></div>
+      </div>
+
+      <div class="table-responsive">
+        <table class="table q-matrix">
+          <caption class="sr-only">사람별 3주 업무. 각 업무 버튼에서 작업·산출물·완료 기준·검토자를 확인할 수 있습니다.</caption>
+          <thead><tr><th scope="col">담당</th><th scope="col">1주차</th><th scope="col">2주차</th><th scope="col">3주차</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">소연<span class="q-sub text-small text-muted">Stat · 검증</span></th>
+              <td><div class="q-cell"><button type="button" class="btn" data-task="s1" aria-pressed="true">평가 기준 정리</button><span class="text-small text-muted">산출물 · 검증표·기준 로그</span></div></td>
+              <td><div class="q-cell"><button type="button" class="btn" data-task="s2" aria-pressed="false">실험 효과 비교</button><span class="text-small text-muted">산출물 · 후보 비교표</span></div></td>
+              <td><div class="q-cell"><button type="button" class="btn" data-task="s3" aria-pressed="false">독립 검증·채택</button><span class="text-small text-muted">산출물 · 최종 검증 기록</span></div></td></tr>
+            <tr><th scope="row">지우<span class="q-sub text-small text-muted">DS · 수치 탐색</span></th>
+              <td><div class="q-cell"><button type="button" class="btn" data-task="j1" aria-pressed="false">화학 기준선 재현</button><span class="text-small text-muted">산출물 · 재구성 오차표</span></div></td>
+              <td><div class="q-cell"><button type="button" class="btn" data-task="j2" aria-pressed="false">정밀도·분해 탐색</button><span class="text-small text-muted">산출물 · 파라미터 후보</span></div></td>
+              <td><div class="q-cell"><button type="button" class="btn" data-task="j3" aria-pressed="false">수치·회로 일치</button><span class="text-small text-muted">산출물 · 고정 파라미터</span></div></td></tr>
+            <tr><th scope="row">예찬<span class="q-sub text-small text-muted">MechE · 역제곱근</span></th>
+              <td><div class="q-cell"><button type="button" class="btn" data-task="y1" aria-pressed="false">근사·오차 분석</button><span class="text-small text-muted">산출물 · 병목·경계 분석</span></div></td>
+              <td><div class="q-cell"><button type="button" class="btn" data-task="y2" aria-pressed="false">연산·비트폭 절감</button><span class="text-small text-muted">산출물 · 근사 후보 2안</span></div></td>
+              <td><div class="q-cell"><button type="button" class="btn" data-task="y3" aria-pressed="false">정밀도 회귀 검증</button><span class="text-small text-muted">산출물 · invsqrt 최종안</span></div></td></tr>
+            <tr><th scope="row">서진<span class="q-sub text-small text-muted">DS&amp;CS · 통합</span></th>
+              <td><div class="q-cell"><button type="button" class="btn" data-task="e1" aria-pressed="false">실행·제출 뼈대</button><span class="text-small text-muted">산출물 · 3과제 실행기</span></div></td>
+              <td><div class="q-cell"><button type="button" class="btn" data-task="e2" aria-pressed="false">회로 구현·통합</button><span class="text-small text-muted">산출물 · 검증된 통합 ZIP</span></div></td>
+              <td><div class="q-cell"><button type="button" class="btn" data-task="e3" aria-pressed="false">패키징·재실행</button><span class="text-small text-muted">산출물 · 제출본·실행 안내</span></div></td></tr>
+            <tr><th scope="row">서희<span class="q-sub text-small text-muted">Chemistry · 근사 검토</span></th>
+              <td><div class="q-cell"><button type="button" class="btn" data-task="c1" aria-pressed="false">문제·지표 해석</button><span class="text-small text-muted">산출물 · 설명 1장·지표표</span></div></td>
+              <td><div class="q-cell"><button type="button" class="btn" data-task="c2" aria-pressed="false">근사 후보 검토</button><span class="text-small text-muted">산출물 · 오차·비용 검토표</span></div></td>
+              <td><div class="q-cell"><button type="button" class="btn" data-task="c3" aria-pressed="false">최종 화학 해석</button><span class="text-small text-muted">산출물 · 화학 검토서</span></div></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card" id="q-selected" aria-live="polite" aria-atomic="true">
+        <div class="q-details">
+          <div class="q-detail-heading"><h3 id="q-detail-title">소연 · 1주차 — 평가 기준 정리</h3><span class="viz-badge" id="q-reviewer">검토: 서진</span></div>
+          <dl class="q-definition">
+            <dt>작업</dt><dd id="q-detail-work">공식 평가 코드의 유효성·오차·비용 항목을 표로 정리하고, 세 기준선의 로그를 같은 형식으로 수집.</dd>
+            <dt>산출물</dt><dd id="q-detail-output">검증 체크리스트, 과제별 기준 비용·자원·오차 기록.</dd>
+            <dt>완료 기준</dt><dd id="q-detail-done">세 과제의 통과 여부와 공식 비용을 동일 버전으로 재현; 탈락 조건과 비용 증가 원인 구분.</dd>
+            <dt>전달</dt><dd id="q-detail-handoff">지우·예찬에게 비교 기준, 서진에게 자동 검증 항목 전달.</dd>
+          </dl>
+        </div>
+      </div>
+
+      <div class="q-checkpoints">
+        <div class="q-gate"><h3>G1 · 11/15</h3><div>세 과제 검증 통과 + ZIP 점검</div><div class="text-small text-muted">미통과 시 W2 탐색보다 재현 복구 우선</div></div>
+        <div class="q-gate"><h3>G2 · 11/19</h3><div>중간 마일스톤용 안정본 확보</div><div class="text-small text-muted">11/20 마감 전 채점·재시도 여유 확보</div></div>
+        <div class="q-gate"><h3>G3 · 11/29</h3><div>전체 재검증 + 타인 재현</div><div class="text-small text-muted">개선 미입증 시 검증된 이전 버전 유지</div></div>
+      </div>
+      <hr>
+      <div class="q-steps" aria-label="후보 전달과 검토 순서"><span>예찬·지우: 후보 생성</span><span aria-hidden="true">→</span><span>서희: 화학 후보의 수치 지표 검토</span><span aria-hidden="true">→</span><span>서진: 회로 통합</span><span aria-hidden="true">→</span><span>소연: 독립 비교</span><span aria-hidden="true">→</span><span>서진: 제출본 확정</span></div>
+      <div class="text-small text-muted">운영 제안 · 월 30분 목표 합의 / 수 20분 병목 점검 / 일 45분 재현 리뷰 · 변경마다 구현자 외 1명 검토</div>
+    </section>
+
+    <section id="q-roles" role="tabpanel" aria-labelledby="q-tab-roles" hidden class="q-stack">
+      <div class="text-small text-muted">배분 근거: 전공에서 기대할 수 있는 강점. 실제 숙련도는 1주차 재현 결과로 조정.</div>
+      <article class="q-role">
+        <header class="q-person"><h3>소연</h3><span class="text-small text-muted">Statistics</span><span>검증·실험 설계</span></header>
+        <dl class="q-definition"><dt>연결 강점</dt><dd>확률·추정·비교 실험 → 실패율, 오차 한계, 개선 효과 판단.</dd><dt>주 책임</dt><dd>공식 지표 해석, 실험 설계, 후보 채택 기준과 최종 검증 기록.</dd><dt>학습 초점</dt><dd>DQI 실패율 상한, 위상·작업 공간 검증, 근사 오차.</dd><dt>주의점</dt><dd>평균 오차만으로 통과 판단 금지. 추가 테스트는 공식 검증을 보완.</dd><dt>협업</dt><dd>지우와 변수별 비교 실험; 서희과 지표 해석 대조; 서진과 평가 로그 자동 수집.</dd></dl>
+      </article><hr>
+      <article class="q-role">
+        <header class="q-person"><h3>지우</h3><span class="text-small text-muted">Data Science</span><span>수치 최적화·탐색</span></header>
+        <dl class="q-definition"><dt>연결 강점</dt><dd>선형대수·최적화·데이터 파이프라인 → 화학 분해·정밀도 후보 탐색.</dd><dt>주 책임</dt><dd>dfthcsos 기준선 재현, 비트 정밀도·트리·분해 후보, 실험 기록 관리.</dd><dt>학습 초점</dt><dd>텐서 분해, 재구성 오차, QROM과 전체 블록 인코딩 비용의 연결.</dd><dt>주의점</dt><dd>분해 오차 감소가 점수 향상을 보장하지 않음. 수치·회로를 함께 비교.</dd><dt>협업</dt><dd>서희과 오차·에너지 지표 해석; 서진과 파라미터→ANGLE 연결; 소연에게 전체 비용·오차 제출.</dd></dl>
+      </article><hr>
+      <article class="q-role">
+        <header class="q-person"><h3>예찬</h3><span class="text-small text-muted">Mechanical Engineering</span><span>역제곱근·수치해석</span></header>
+        <dl class="q-definition"><dt>연결 강점</dt><dd>수치해석·근사·물리 모델링 → 역제곱근의 오차와 연산량 절충.</dd><dt>주 책임</dt><dd>invsqrt 근사식·구간·비트폭·반복 횟수 분석, 경계값 검증.</dd><dt>학습 초점</dt><dd>고정소수점, 가역 산술, 임시 큐비트 정리와 위상 오차.</dd><dt>주의점</dt><dd>고전 계산에서 빠른 근사가 양자 회로에서도 저렴한지 별도 확인.</dd><dt>협업</dt><dd>서진과 회로로 옮기기; 소연과 최악 구간·정밀도 검토.</dd></dl>
+      </article><hr>
+      <article class="q-role">
+        <header class="q-person"><h3>서진</h3><span class="text-small text-muted">Data Science &amp; CS</span><span>회로·통합 책임</span></header>
+        <dl class="q-definition"><dt>연결 강점</dt><dd>알고리즘·자료구조·시스템 구현 → 가역 회로, 자동 검증, 재현 가능한 패키지.</dd><dt>주 책임</dt><dd>공통 실행기, 회로 통합·제출 구조, DQI 기준선과 제한적 개선.</dd><dt>학습 초점</dt><dd>kickmix·Qualtran, 유한체 산술, Reed–Solomon 디코딩, uncomputation.</dd><dt>주의점</dt><dd>통합 병목 방지: 지우·예찬이 후보 생성 코드까지 소유, 서진은 공통 인터페이스 담당.</dd><dt>협업</dt><dd>소연이 제출 전 독립 검토; DQI 대규모 재설계는 W1 실측 후 결정.</dd></dl>
+      </article>
+      <hr><article class="q-role">
+        <header class="q-person"><h3>서희</h3><span class="text-small text-muted">Chemistry</span><span>화학 해석·근사 검토</span></header>
+        <dl class="q-definition"><dt>연결 강점</dt><dd>양자화학·전자구조·에너지 개념 → 고정된 화학 문제와 근사 지표 해석.</dd><dt>주 책임</dt><dd>FeMoCo 데이터 사전, 공식 오차·에너지 조건표, 지우 후보의 수치 변화 검토, 보고서의 화학 설명.</dd><dt>학습 초점</dt><dd>FCIDUMP, DFTHC·SOS, 재구성 오차, E_gap과 lambda_eff, 각도 정밀도.</dd><dt>주의점</dt><dd>공식 고정 입력과 평가식을 기준으로 판단. 경험이 적으면 지표 해석부터, 계산화학 경험이 있으면 후보 설계까지 확대.</dd><dt>협업</dt><dd>지우와 가설·수치 실험, 서진과 회로·NPZ 대응, 소연과 독립 비교. 상세 파일·순서는 ‘서희 시작하기’ 탭 참고.</dd></dl>
+      </article>
+      <hr>
+      <dl class="q-definition"><dt>공통 학습</dt><dd>첫 2일: 가역 계산, Toffoli, 임시 큐비트, 위상 검증, 공식 예제 1회 실행.</dd><dt>재배분 기준</dt><dd>W1 말 재현 성공·학습 부담·가용시간 점검. DQI는 기준선 유지가 기본, 개선 여지가 명확할 때 확대.</dd><dt>시간 제약</dt><dd>가용시간이 부족하면 invsqrt 개선 + 나머지 두 과제 유효본 유지로 범위 축소.</dd></dl>
+    </section>
+
+    <section id="q-chemistry" role="tabpanel" aria-labelledby="q-tab-chemistry" hidden class="q-stack">
+      <div class="q-title"><h3>서희 · 파일부터 첫 검토까지</h3><p>DFTHC-SOS의 대상·근사·오차를 설명하고, 지우의 수치 후보를 공식 기준으로 검토한다.</p></div>
+      <dl class="q-definition"><dt>담당 과제</dt><dd>FeMoCo76o113e · 공간 오비탈 76개, 전자 113개의 고정된 공식 문제.</dd><dt>직접 책임</dt><dd>데이터 의미 정리, 오차·에너지 지표 해석, 후보 검토 의견, 보고서의 화학적 설명.</dd><dt>협업 범위</dt><dd>지우는 수치 후보와 생성 코드, 서희는 지표 해석과 가설, 서진은 회로 통합·실행, 소연은 독립 비교와 채택 근거를 맡는다.</dd><dt>첫 시작</dt><dd>1~3번 자료를 먼저 읽고 기준 결과에 주석을 단다. 양자화학 경험이 적으면 용어·단위·조건표부터, 경험이 있으면 분해·양자화 가설까지 확장한다.</dd></dl>
+
+      <h3>읽는 순서 · 파일별로 남길 메모</h3>
+      <p>아래 경로는 팀 작업 폴더 <code>jjeya</code> 기준이다. 파일 링크는 웹 가이드 또는 공식 자료 안내로 연결된다. 파일 탐색기에서 <code>seojin_work/week1</code>을 열어 확인한다. 코드·Markdown은 편집기로, <code>JIWOO_GUIDE.html</code>은 브라우저로 본다.</p>
+      <div class="table-responsive"><table class="table q-file-table"><caption class="sr-only">서희가 읽을 일곱 단계의 파일과 작업</caption><thead><tr><th scope="col">순서</th><th scope="col">파일 · week1 기준 경로</th><th scope="col">확인할 부분</th><th scope="col">직접 남길 결과</th></tr></thead><tbody>
+        <tr><th scope="row">1 · 작업 흐름</th><td><a href="guides/jiwoo.html"><code>JIWOO_GUIDE.html</code></a><br><a href="results.html"><code>reports/BASELINE_RESULTS.md</code></a></td><td>지우 안내서의 1·3·6·7절과 세 기준 예제의 full 결과. 실행이 필요하면 2절의 개인 PC용 Python 3.12 준비 절차를 따른다.</td><td>누가 후보를 만들고 누가 검토하는지 적은 역할 메모. 공유 .venv의 과거 기록과 새 실행 환경을 구분한다.</td></tr>
+        <tr><th scope="row">2 · 문제 정의</th><td><a href="resources.html#official-files"><code>vendor/competition/verifiers/dfthcsos/SCORING_README.md</code></a></td><td>System → Submission files → Worked example → Scoring. 제출 회로·분해·Givens 트리가 연결되는 방식.</td><td>FeMoCo 문제, 해밀토니안, 근사 목적을 팀원이 이해할 수 있게 1장으로 설명.</td></tr>
+        <tr><th scope="row">3 · 실제 기준값</th><td><a href="results.html#dfthcsos"><code>reports/runs/20261107T091146680709Z-full/dfthcsos.json</code></a></td><td><code>official_result.metrics</code>, <code>resources</code>, <code>score</code>, <code>verified_shots</code>, <code>submission_sha256</code>.</td><td>각 숫자의 단위·의미·통과 조건을 주석으로 적고, 기준의 오차 여유를 계산.</td></tr>
+        <tr><th scope="row">4 · 기준 데이터</th><td><a href="resources.html#official-files"><code>vendor/competition/verifiers/dfthcsos/scoreinfra/reference.py</code></a><br><a href="resources.html#official-files"><code>vendor/competition/verifiers/dfthcsos/FeMoCo76o113e.fcidump</code></a></td><td>76개 오비탈·113전자, one-/two-electron 적분, 고정 대칭 shift와 기준 에너지 <code>E_upper</code>. FCIDUMP 전체를 손으로 읽기보다 reference.py의 로딩·상수부터 확인.</td><td>전자·오비탈·적분·에너지의 데이터 사전. 공식 기준 입력과 고정 shift를 명시.</td></tr>
+        <tr><th scope="row">5 · 후보 구조</th><td><a href="resources.html#official-files"><code>vendor/competition/sample_submission/dfthcsos/submission.npz</code></a></td><td>지우 안내서 3절의 <code>np.load(..., allow_pickle=False)</code> 예제로 배열명·형상을 확인. U, W, H2_I, tree_edges, angle_words의 관계.</td><td>기준 R/B/C=65/60/60, 각도 표 3,976×75, brot=12, J=8을 기록. NPZ는 텍스트 편집 대상이 아니다.</td></tr>
+        <tr><th scope="row">6 · 판정 근거</th><td><a href="resources.html#official-files"><code>vendor/competition/verifiers/dfthcsos/verify.py</code></a><br><a href="resources.html#official-files"><code>vendor/competition/verifiers/dfthcsos/scoreinfra/dfthc_math.py</code></a></td><td><code>evaluate_words</code>, <code>passes_accuracy</code>, <code>score_from_metrics</code>와 수치 모듈의 <code>evaluate_dfthc_vectors</code>. 수식·단위·부등호를 원문과 대조.</td><td>공식 지표표와 후보 채택·보류 사유. error_1/2를 실제 바닥상태 에너지 오차로, E_gap을 들뜸 에너지로 혼동하지 않기.</td></tr>
+        <tr><th scope="row">7 · 지우와 함께</th><td><a href="resources.html#official-files"><code>vendor/competition/verifiers/dfthcsos/example_submission/angle_k_reference_circuit.py</code></a><br><a href="resources.html#official-files"><code>vendor/competition/verifiers/dfthcsos/scoreinfra/costs_prepare.py</code></a></td><td>각도 단어→ANGLE 회로→전체 비용. <code>theta = pi × word / 2^(brot−1)</code>, brot와 J의 서로 다른 역할.</td><td>실험 가설 2개: 바꿀 변수, 예상 효과, 위험한 지표, 확인할 full 결과를 한 줄씩 작성.</td></tr>
+      </tbody></table></div>
+
+      <h3>공식 지표 · 기준 결과를 이렇게 읽기</h3>
+      <p>2026.11.07 로컬 full PASS 기록을 기준으로 한다. 아래 값은 표시용 반올림이며, 비교·판정은 원본 JSON과 공식 함수로 한다.</p>
+      <div class="table-responsive"><table class="table"><thead><tr><th scope="col">지표</th><th scope="col">기준값</th><th scope="col">의미 · 확인 조건</th></tr></thead><tbody>
+        <tr><th scope="row">error_1</th><td class="tabular-nums">0.00318519503 Ha</td><td>1전자 성분 재구성 잔차의 Frobenius norm. <code>≤ 0.020 Ha</code>.</td></tr>
+        <tr><th scope="row">error_2</th><td class="tabular-nums">0.01863957063 Ha</td><td>2전자 적분 재구성 잔차의 Frobenius norm. <code>≤ 0.020 Ha</code>. 남은 여유는 약 0.00136043 Ha(1.36043 mHa).</td></tr>
+        <tr><th scope="row">Lambda</th><td class="tabular-nums">308.45593973 Ha</td><td>LCU 정규화 계수. <code>&gt; 49.0</code>을 엄격하게 만족해야 한다.</td></tr>
+        <tr><th scope="row">E_SOS / E_gap</th><td class="tabular-nums">−22144.23882724 / 3.96547724 Ha</td><td>E_SOS는 DFTHC 해밀토니안의 SOS 에너지 하한, E_gap은 고정 E_upper와의 차이. <code>E_gap &gt; 3.914898</code>과 공식 <code>gap_in_domain</code> 검사를 만족해야 한다. 정확한 다전자 대각화 결과가 아니다.</td></tr>
+        <tr><th scope="row">lambda_eff</th><td class="tabular-nums">49.30136925 Ha</td><td><code>sqrt(E_gap × (2 Lambda − E_gap))</code>. 유한값이어야 하며 전체 비용의 첫 번째 인자다.</td></tr>
+        <tr><th scope="row">score / 회로 자원</th><td class="tabular-nums">3,355,599,588.3155375</td><td><code>lambda_eff × T_total × Q_total</code>. T_total=93,237, Q_total=730. ANGLE 자체의 119큐비트와 구분한다. 모든 검사 통과 후 같은 과제의 비용이 낮을수록 좋다.</td></tr>
+      </tbody></table></div>
+      <p>기준 화학 검증은 10개 ANGLE 회로와 NPZ를 함께 평가했고, 주소당 64 shots, 총 254,464 shots를 사용했다. 수치 모델 통과와 실제 회로 full PASS는 별도로 기록한다.</p>
+
+      <h3>3주 동안 직접 할 일과 완료 기준</h3>
+      <div class="table-responsive"><table class="table"><thead><tr><th scope="col">주차</th><th scope="col">직접 할 일</th><th scope="col">작성할 파일 · 신규 산출물</th><th scope="col">완료 확인</th></tr></thead><tbody>
+        <tr><th scope="row">W1 · 11/09–15</th><td>문제와 데이터 구조를 읽고, 기준 JSON에 지표별 설명·단위·조건·여유를 붙인다. 지우와 가설 2개를 합의.</td><td><code>chemistry_problem_brief.md</code><br><code>chemistry_metrics.md</code><br><code>baseline_review.md</code></td><td>지우·소연이 원본 지표와 설명을 대조하고, 팀원이 핵심 조건을 재설명할 수 있다.</td></tr>
+        <tr><th scope="row">W2 · 11/16–22</th><td>지우가 만든 후보에서 한 변수씩 바뀐 결과를 검토. 오차 여유·Lambda·E_gap과 전체 비용을 함께 비교. 11/19 안정본 후보에 의견 전달.</td><td><code>candidate_review.md</code><br>변경 변수·파일 해시·metrics·full 상태·score·채택/보류 사유 표</td><td>검토한 후보마다 기준 대비 변화와 판단 근거가 있다. 코딩 경험이 있으면 수치 모델 실험을 함께 수행.</td></tr>
+        <tr><th scope="row">W3 · 11/23–29</th><td>11/25 동결 설정에서 NPZ·트리·각도·회로가 같은 실험인지 대조. 최종 화학 지표와 설명을 소연·서진의 full 결과에 연결.</td><td><code>final_chemistry_review.md</code><br>최종 보고서의 화학 분석 문단·후속 가설</td><td>최종 full 결과·파일 해시·보고서 수치가 일치하고, 오차 정의와 실험 한계가 분명하다.</td></tr>
+      </tbody></table></div>
+      <p>작성 위치 제안: <code>seohee_work/week1</code>, <code>week2</code>, <code>week3</code>. 위 산출물은 앞으로 작성할 파일이다. 회로·NPZ 후보는 지우의 실험 폴더를 참조하고, 검토 메모에 정확한 경로와 해시를 남긴다.</p>
+
+      <h3>첫 후보 검토 예시</h3>
+      <ol class="q-review-list"><li>지우와 각도 정밀도 12→11비트의 가설을 정한다. 실제 각도를 새 정밀도로 다시 양자화해야 한다.</li><li>서희는 수치 모델의 error_1·error_2, Lambda, E_gap, lambda_eff 변화를 읽고 여유를 계산한다.</li><li>수치 조건을 통과한 후보를 서진과 회로 full 검증으로 연결한다. 소연은 같은 조건의 기준선과 비용을 독립 비교한다.</li><li>공식 정확도 조건을 유지하면서 전체 비용이 낮아졌는지 근거를 남긴다. 이 예시는 실험 제안이며 11비트 통과·개선은 아직 확인하지 않았다.</li></ol>
+      <dl class="q-definition"><dt>검토 시 구분</dt><dd>공식 FCIDUMP·전자 수·고정 shift는 평가 기준이다. H1_I·Hsym_lower를 수정해도 공식 평가는 제공된 고정 shift를 사용한다.</dd><dt>최종 전달</dt><dd>지우에게 다음 수치 실험 제안, 서진에게 채택 후보 경로·설정·해시, 소연에게 지표 해석과 판단 근거를 전달한다.</dd><dt>자료 근거</dt><dd>다운로드한 공식 SCORING_README.md·verify.py·scoreinfra 코드와 위에 지정한 full 결과 JSON. 역할·주차별 산출물은 팀 실행 제안이다.</dd></dl>
+    </section>
+
+    <section id="q-strategy" role="tabpanel" aria-labelledby="q-tab-strategy" hidden class="q-stack">
+      <dl class="q-definition"><dt>최종 목표</dt><dd>공식 검증 통과 + 자원 비용 감소 + 재현 가능한 제출본.</dd><dt>평가 방식</dt><dd>세 과제의 기준선 대비 개선 배율을 기하평균으로 결합. 점수는 높을수록 우수.</dd><dt>실험 우선순위</dt><dd>세 과제 유효본 유지 → W1 실측 → 개발 시간 대비 기대 비용 감소가 큰 변경 우선.</dd></dl>
+      <div class="table-responsive"><table class="table">
+        <caption class="sr-only">공식 과제와 비용 항목, 팀의 탐색 제안</caption>
+        <thead><tr><th scope="col">공식 과제</th><th scope="col">공식 비용의 핵심</th><th scope="col">팀 탐색 제안</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">invsqrt<span class="q-sub text-small text-muted">핵융합 · 역제곱근 위상</span></th><td>큐비트 수 × 가중 게이트 수<span class="q-sub text-small text-muted">Toffoli·T 게이트, 정밀도 검증</span></td><td>예찬 주도 / 서진 구현 지원<span class="q-sub text-small text-muted">근사식·비트폭·임시 공간</span></td></tr>
+          <tr><th scope="row">dqi<span class="q-sub text-small text-muted">Reed–Solomon 디코더</span></th><td>실패율 상한에 따른 반복 비용 × 큐비트 수의 제곱 × Toffoli 수</td><td>서진 주도 / 소연 검토<span class="q-sub text-small text-muted">기준선 보존, 공간 절감 후보부터</span></td></tr>
+          <tr><th scope="row">dfthcsos<span class="q-sub text-small text-muted">화학 · 분해와 각도 로딩</span></th><td>유효 정규화 계수 × 전체 Toffoli 수 × 전체 큐비트 수</td><td>지우 수치 / 서희 해석 / 서진 회로<span class="q-sub text-small text-muted">기존 분해 유지 후 정밀도·로더부터</span></td></tr>
+        </tbody>
+      </table></div>
+      <h3>채택 게이트</h3>
+      <dl class="q-definition"><dt>1 · 유효성</dt><dd>공식 검증 통과. 빠른 로컬 검사는 후보 선별용.</dd><dt>2 · 비용</dt><dd>전체 공식 비용과 종합 점수를 기준선에 비교. 게이트 수 단독 개선으로 채택하지 않음.</dd><dt>3 · 분리 비교</dt><dd>변경 하나씩 적용한 결과와 조합 결과를 비교해 실제 기여 확인.</dd><dt>4 · 재현</dt><dd>동일 입력·버전·설정으로 다른 팀원이 생성부터 검증까지 재실행.</dd></dl>
+      <h3>제출 묶음 · 서진 책임 / 소연 검토</h3>
+      <div class="table-responsive"><table class="table table-sm"><thead><tr><th scope="col">경로·파일</th><th scope="col">필수 점검</th></tr></thead><tbody>
+        <tr><td><code>invsqrt.kmb</code> 또는 <code>.kmx</code></td><td>역제곱근 회로와 공식 검증 로그</td></tr>
+        <tr><td><code>dqi.kmb</code> 또는 <code>.kmx</code></td><td>디코더 회로와 실패율·공간 정리 검증</td></tr>
+        <tr><td><code>dfthcsos/angle_k_0</code> … <code>angle_k_n-1</code></td><td>.kmb 또는 .kmx · 0부터 연속 번호 · 각 ANGLE 회로 128큐비트 이하</td></tr>
+        <tr><td><code>dfthcsos/submission.npz</code></td><td>U, W, H2_I, H1_I, Hsym_lower, tree_edges · 회로와 같은 파라미터 버전</td></tr>
+      </tbody></table></div>
+      <div class="text-small text-muted">공식 채점 안내: 약 45분. 화학 비용은 제출 ANGLE 회로뿐 아니라 전체 블록 인코딩 기준.</div>
+      <h3>공식 마감과 3주 범위</h3>
+      <div class="table-responsive"><table class="table table-sm"><thead><tr><th scope="col">구분</th><th scope="col">시카고 시간 (CST)</th><th scope="col">계획 반영</th></tr></thead><tbody>
+        <tr><th scope="row">중간 마일스톤</th><td>2026.11.20 · 17:59</td><td>W2의 11/19 안정본. 상금 도전 시 노트북·사용 데이터 공개 및 유지 요건 확인.</td></tr>
+        <tr><th scope="row">3주 스프린트 종료</th><td>2026.11.29</td><td>팀 내부 일정 제안 · 대회 최종 마감과 별개</td></tr>
+        <tr><th scope="row">참가·팀 병합 마감</th><td>2027.01.13 · 17:59</td><td>팀 구성·규칙 동의는 W1에 확인</td></tr>
+        <tr><th scope="row">대회 최종 제출</th><td>2027.01.20 · 17:59</td><td>3주 성과를 바탕으로 후속 실험 계획 수립</td></tr>
+      </tbody></table></div>
+      <div class="text-small text-muted">공식 마감은 해당 날짜 23:59 UTC 기준. 확인일 2026.11.07. 상세 임계값·허용 명령은 내려받은 공식 평가 코드와 대조.</div>
+      <div class="q-sources text-small"><a href="https://www.kaggle.com/competitions/google-verifiable-quantum-circuit-compilation/overview/evaluation" target="_blank" rel="noopener noreferrer">공식 평가·일정</a><a href="https://www.kaggle.com/code/metric/google-quantum-ai-metric" target="_blank" rel="noopener noreferrer">공식 평가 코드</a><a href="https://arxiv.org/abs/2610.23832" target="_blank" rel="noopener noreferrer">주최 측 논문</a><a href="https://github.com/quantumlib/Qualtran/tree/main/kickmix" target="_blank" rel="noopener noreferrer">kickmix</a></div>
+    </section>
+  </div>
+
+
+</div>
