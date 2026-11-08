@@ -14,7 +14,7 @@
 | `scripts/environment_check.py` | Python·패키지 버전과 kickmix 동작 확인 |
 | `scripts/verify_assets.py` | 공식 ZIP과 추출한 파일의 무결성 확인 |
 
-파일은 공통 `seojin_work/week1` 기준이다. [자료 안내](../resources.html)에서 공식 데이터와 작업 폴더를 확인한다.
+파일은 공통 `seojin_work/week1` 기준이다. [자료 안내](../resources.html#environment)에서 공식 데이터와 작업 폴더를 확인한다.
 
 ## 2. 실행 환경 확인
 
