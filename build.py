@@ -4,6 +4,7 @@ from html.parser import HTMLParser
 from urllib.parse import urlsplit,unquote
 from collections import Counter
 import html,json,re,shutil
+from drive_sources import Tree
 
 ROOT=Path(__file__).resolve().parent
 OUT=ROOT/'docs'
@@ -15,6 +16,18 @@ PEOPLE=[
  ('seohee','서희','화학 해석 · 근사 검토','화학 지표를 해석하고 지우의 근사 후보를 검토해요.','문제 설명 · 지표표 · 검토 메모','Chemistry')
 ]
 BASE=json.loads((ROOT/'content/baselines.json').read_text(encoding='utf-8'))
+
+SUMMARY_PATH=ROOT/'content/plan-summary.json'
+SUMMARY=json.loads(SUMMARY_PATH.read_text(encoding='utf-8')) if SUMMARY_PATH.exists() else {}
+SYNC_PATH=ROOT/'content/sync-info.json'
+SYNC=json.loads(SYNC_PATH.read_text(encoding='utf-8')) if SYNC_PATH.exists() else {}
+for i,person in enumerate(PEOPLE):
+    slug,name,role,desc,output,major=person
+    data=SUMMARY.get('people',{}).get(name,{})
+    PEOPLE[i]=(slug,name,data.get('role') or role,data.get('description') or desc,data.get('output') or output,major)
+SCHEDULE=SUMMARY.get('schedule') or '2026.11.09 — 11.29'
+UPDATE_LABEL=('문서 동기화 '+SYNC['updated_at'][:10].replace('-','.')) if SYNC else '업데이트 2026.11.08'
+
 LABELS={'invsqrt':'INVSQRT','dqi':'DQI','dfthcsos':'DFTHC-SOS'}
 SUBTITLES={'invsqrt':'역제곱근 위상 회로','dqi':'Reed–Solomon 디코더','dfthcsos':'화학 분해 · 각도 로딩'}
 def esc(x):return html.escape(str(x))
@@ -59,8 +72,8 @@ def page(title,active,body,depth=0,extra_script=''):
     nav=[('home','index.html','전체 현황'),('plan','plan.html','3주 계획 · 역할'),('guides','guides.html','개인별 가이드'),('results','results.html','검증 결과'),('resources','resources.html','자료 · 실행 안내')]
     links=''.join(f'<a href="{p+url}"'+(' aria-current="page"' if key==active else '')+f'><span class="nav-no">{i:02}</span>{text}</a>' for i,(key,url,text) in enumerate(nav,1))
     return f'''<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="referrer" content="no-referrer"><meta name="description" content="다섯 명의 양자 회로 팀을 위한 3주 실행 계획, 개인별 가이드와 공식 기준 예제 검증 기록."><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'"><title>{esc(title)} · Quantum Team</title><link rel="stylesheet" href="{p}assets/styles.css"><script src="{p}assets/app.js" defer></script>{extra_script}</head><body><div class="shell">
-<aside class="sidebar"><a class="brand" href="{p}index.html"><span class="brand-mark" aria-hidden="true">Q</span><span>Quantum Team<small>CIRCUIT COMPILATION</small></span></a><button class="menu-button" type="button" aria-controls="site-nav" aria-expanded="false">메뉴</button><div class="side-caption">TEAM WORKSPACE</div><nav class="side-nav" id="site-nav" aria-label="대시보드">{links}</nav><div class="side-bottom"><strong>Google Quantum AI</strong>5인 팀 · 3주 실행안<br>2026.11.09 — 11.29</div></aside>
-<main class="content"><div class="topline"><span>팀 워크스페이스 / {esc(title)}</span><span>업데이트 2026.11.08</span></div>{body}<footer class="footnote"><span>팀 실행 제안 · 기준 검증 기록 2026.11.07</span><span><a href="https://github.com/ys06146/quantum-team-dashboard">GitHub 저장소 ↗</a> · <a href="{p}resources.html">자료 출처</a></span></footer></main></div></body></html>'''
+<aside class="sidebar"><a class="brand" href="{p}index.html"><span class="brand-mark" aria-hidden="true">Q</span><span>Quantum Team<small>CIRCUIT COMPILATION</small></span></a><button class="menu-button" type="button" aria-controls="site-nav" aria-expanded="false">메뉴</button><div class="side-caption">TEAM WORKSPACE</div><nav class="side-nav" id="site-nav" aria-label="대시보드">{links}</nav><div class="side-bottom"><strong>Google Quantum AI</strong>5인 팀 · 3주 실행안<br>{esc(SCHEDULE)}</div></aside>
+<main class="content"><div class="topline"><span>팀 워크스페이스 / {esc(title)}</span><span title="{esc(SYNC.get('updated_at','2026-11-08'))}">{esc(UPDATE_LABEL)}</span></div>{body}<footer class="footnote"><span>팀 실행 제안 · 기준 검증 기록 2026.11.07</span><span><a href="https://github.com/ys06146/quantum-team-dashboard">GitHub 저장소 ↗</a> · <a href="{p}resources.html">자료 출처</a></span></footer></main></div></body></html>'''
 
 def team_cards():
     return '<div class="team-grid">'+''.join(f'<article class="person-card"><div class="person-top"><span class="avatar" aria-hidden="true">{name[-1]}</span><h3>{name}</h3></div><div class="person-role">{role}</div><p class="person-desc">{desc}</p><p class="bench-caption">이번 주 산출물<br>{output}</p><a href="guides/{slug}.html" aria-label="{name} 가이드 열기">가이드 열기 <span aria-hidden="true">→</span></a></article>' for slug,name,role,desc,output,major in PEOPLE)+'</div>'
@@ -82,6 +95,9 @@ def build():
     tasks=json.loads((ROOT/'content/tasks.json').read_text(encoding='utf-8'))
     write('assets/plan.js','const PLAN_TASKS='+json.dumps(tasks,ensure_ascii=False)+';\n'+(ROOT/'assets/plan-runtime.js').read_text(encoding='utf-8'))
     home='''<section class="hero"><div><span class="eyebrow">ONE TEAM, THREE BENCHMARKS</span><h1>다음 작업을,<br>같은 기준으로.</h1><p>각자의 역할과 읽을 파일, 검증된 기준값을 한곳에 모았어요. 내 가이드부터 열고 이번 주 산출물을 확인하세요.</p><div class="hero-actions"><a class="button primary" href="guides.html">내 가이드 찾기 <span aria-hidden="true">→</span></a><a class="button" href="plan.html">3주 계획 보기</a></div></div><div class="phases"><div class="phase"><span class="phase-no">W1</span><div><strong>재현 · 기준 확정</strong><small>11/09–15 · 공통 언어와 유효본 확보</small></div></div><div class="phase"><span class="phase-no">W2</span><div><strong>후보 실험 · 선별</strong><small>11/16–22 · 근사·정밀도·회로 비교</small></div></div><div class="phase"><span class="phase-no">W3</span><div><strong>동결 · 독립 재검증</strong><small>11/23–29 · 재현 가능한 제출 묶음</small></div></div></div></section>'''
+    if SUMMARY.get('phases'):
+        phase_html='<div class="phases">'+''.join('<div class="phase"><span class="phase-no">W'+str(i)+'</span><div><strong>'+esc(p['title'])+'</strong><small>'+esc(p['label'])+' · '+esc(p['detail'])+'</small></div></div>' for i,p in enumerate(SUMMARY['phases'],1))+'</div></section>'
+        home=home[:home.index('<div class="phases">')]+phase_html
     home+='<section class="section"><div class="section-title"><div><h2>검증된 출발점</h2><p>공식 기본 예제 3종의 전체 검증 기록</p></div><a href="results.html">결과 모두 보기 →</a></div>'+benchmarks()+'<p class="section-note">각 과제의 비용식은 서로 달라요. 같은 과제의 기준선과 후보를 비교하세요. 로컬 PASS는 Kaggle 제출 완료를 뜻하지 않습니다.</p></section>'
     home+='<section class="section"><div class="section-title"><div><h2>각자의 첫 주</h2><p>파일을 다운로드하지 않고 가이드를 바로 읽을 수 있어요.</p></div><a href="plan.html">역할 자세히 →</a></div>'+team_cards()+'</section>'
     home+='''<section class="section"><div class="section-title"><h2>후보가 제출본이 되기까지</h2></div><div class="handoff"><span><strong>예찬 · 지우</strong> 후보 생성</span><span class="arrow" aria-hidden="true">→</span><span><strong>서희</strong> 화학 지표 검토</span><span class="arrow" aria-hidden="true">→</span><span><strong>서진</strong> 회로 통합</span><span class="arrow" aria-hidden="true">→</span><span><strong>소연</strong> 독립 비교</span></div><p class="section-note">서희의 검토는 화학 후보에 해당해요. 채택 결과와 파일 버전은 함께 기록합니다.</p></section>'''
@@ -91,7 +107,12 @@ def build():
     write('guides.html',page('개인별 가이드','guides','<div class="page-head"><span class="eyebrow">START HERE</span><h1>내 가이드부터 시작하세요.</h1><p>읽을 파일 순서와 직접 할 일, 완료 기준과 전달할 결과물을 정리했어요.</p></div>'+team_cards()+'<div class="section reading-note">가이드 읽기에는 설치가 필요 없어요. 회로 생성·검증을 실행할 때는 공식 데이터와 개인 PC의 Python 3.12 환경을 준비하세요. <a href="resources.html#environment">실행 환경 안내 →</a></div>'))
     for slug,name,role,desc,output,major in PEOPLE:
         md=(ROOT/'content/guides'/f'{slug}.md').read_text(encoding='utf-8')
-        body,headings=markdown(md)
+        html_source=ROOT/'content/guides'/f'{slug}.html'
+        if html_source.exists():
+            body=html_source.read_text(encoding='utf-8')
+            headings=[(h.attrs['id'],h.text()) for h in Tree(body).root.find('h2') if 'id' in h.attrs]
+        else:
+            body,headings=markdown(md)
         toc='<aside class="toc" aria-label="가이드 목차"><strong>ON THIS PAGE</strong>'+''.join(f'<a href="#{id}">{esc(title)}</a>' for id,title in headings)+'</aside>'
         intro=f'<div class="page-head"><span class="eyebrow">WEEK 01 / {esc(major.upper())}</span><h1>{name} · {role}</h1><p>{desc}</p></div>'
         if '$ProjectRoot' in md:
@@ -111,6 +132,7 @@ def build():
     result_body+='<section class="section reading-note">수치 모델 PASS, 축소 smoke PASS와 전체 full PASS를 구분하세요. 비용은 같은 과제 안에서 비교합니다. <a href="data/baselines.json">공개 요약 JSON 보기 →</a></section>'
     write('results.html',page('검증 결과','results',result_body))
     write('data/baselines.json',json.dumps(BASE,indent=2,ensure_ascii=False))
+    if SYNC:write('data/sync-info.json',json.dumps(SYNC,indent=2,ensure_ascii=False))
     resources='''<div class="page-head"><span class="eyebrow">FILES & REPRODUCIBILITY</span><h1>자료와 실행 환경</h1><p>계획과 가이드는 이 사이트에서 읽고, 실제 실험은 팀 작업 폴더에서 진행해요.</p></div>
 <div class="resource-list"><section class="resource-item" id="official-files"><h2>공식 실험 자료</h2><p>공식 예제 회로, NPZ, FCIDUMP와 검증 코드는 Kaggle 대회 Data에서 제공해요. 팀 공통 폴더에 이미 확보한 원본도 같은 구조로 보존되어 있습니다.</p><a class="button primary" href="https://www.kaggle.com/competitions/google-verifiable-quantum-circuit-compilation/data" target="_blank" rel="noopener noreferrer">Kaggle 공식 Data 열기 ↗</a><code>jjeya/seojin_work/week1/vendor/competition/</code><p>검증 코드: verifiers/ · 기준 회로: sample_submission/ · 공식 ZIP: data/competition.zip</p><p>가이드의 공식 파일 링크는 이 안내로 연결돼요. 공개 저장소에는 팀이 작성한 계획·가이드·검증 결과 요약을 담았습니다.</p></section>
 <section class="resource-item" id="team-files"><h2>팀 작업 폴더</h2><p>공통 실행 도구와 원본 로그는 seojin_work/week1에, 개인 분석은 각자의 week1에 보관해요.</p><pre><code>jjeya/
@@ -145,7 +167,9 @@ def validate():
     for path,scan in pages.items():
         for link in scan.links:
             u=urlsplit(link)
-            if u.scheme or u.netloc:continue
+            if u.scheme or u.netloc:
+                assert u.scheme in ('https','http') and not u.username and not u.password,(path,link)
+                continue
             target=(path.parent/unquote(u.path)).resolve() if u.path else path
             assert target.is_relative_to(OUT.resolve()),(path,link)
             assert target.is_file(),(path,link)

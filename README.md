@@ -7,25 +7,21 @@
 - GitHub Pages: `main` 브랜치의 `/docs`
 - 외부 패키지·로그인·분석 추적·API 키 없이 동작합니다.
 
-## 수정과 재생성
+## 드라이브에서 수정하면 자동 반영
 
-Python 3.12 이상에서:
+계획은 팀 폴더의 `quantum-team-plan-share.html`, 가이드는 각 원본 `*_GUIDE.md` 또는 `.html`에서 수정합니다. Windows 작업 스케줄러가 로그인 시와 2분 간격으로 문서를 확인하고, 변환·링크 검사 후 GitHub Pages로 배포합니다. PC가 켜져 있고 Google Drive와 인터넷에 연결돼 있어야 합니다.
+
+**수정할 파일, 형식 선택 규칙, 켜기·끄기, 오류 확인: [AUTO_SYNC.md](AUTO_SYNC.md)**
 
 ```text
-python build.py
-python -m http.server 8765 --bind 127.0.0.1 --directory docs
+python sync_drive.py                 # 드라이브 원본 변환·검사만
+python sync_drive.py --publish       # 지금 동기화
+python sync_drive.py --status        # 최근 상태
+python build.py                      # 현재 가져온 content로 사이트 생성
+python -m unittest discover -s tests -v
 ```
 
-브라우저에서 `http://127.0.0.1:8765/`를 확인합니다. `build.py`는 모든 내부 파일 링크와 문서 앵커도 검사합니다.
-
-- `content/plan.html`: 3주 계획·역할 화면
-- `content/tasks.json`: 15개 주차별 업무의 상세 설명
-- `content/guides/*.md`: 개인별 가이드 원본
-- `content/baselines.json`: 공개용 검증 결과 요약
-- `assets/`: 공통 스타일과 인터랙션
-- `docs/`: GitHub Pages 배포 파일
-
-수정 후 `python build.py`를 실행하고 원본과 `docs`를 함께 커밋·푸시하면 Pages에 반영됩니다.
+`content/`와 `docs/`는 생성 결과입니다. `assets/`, `build.py` 등 사이트 코드를 고친 경우 검사 후 커밋·푸시하세요. 저장소에 미커밋 작업이 있으면 문서 자동 배포가 잠시 멈춥니다.
 
 ## 범위와 출처
 
