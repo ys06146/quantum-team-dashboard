@@ -49,6 +49,11 @@ if ((Get-Item -LiteralPath $gitSource -Force).PSIsContainer) {
     $gitExecutable = Join-Path $env:ProgramFiles 'Git\cmd\git.exe'
     & $gitExecutable -C $PSScriptRoot config core.worktree $PSScriptRoot
     if ($LASTEXITCODE -ne 0) { throw 'Failed to connect the local Git metadata.' }
+    # Packaged desktop apps may redirect AppData. Persist Git's physical path so
+    # a scheduled process outside that app sees the same repository.
+    $physicalGit = (& $gitExecutable -C $PSScriptRoot rev-parse --absolute-git-dir).Trim()
+    if ($LASTEXITCODE -ne 0) { throw 'Failed to resolve the physical Git directory.' }
+    [IO.File]::WriteAllText($gitSource, 'gitdir: ' + $physicalGit + "`n", [Text.UTF8Encoding]::new($false))
     Write-Output 'Git metadata is now local; the original metadata backup remains on Drive.'
 }
 $action = New-ScheduledTaskAction -Execute $PythonExecutable -Argument "-X utf8 `"$syncScript`" --publish"
