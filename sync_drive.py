@@ -70,7 +70,7 @@ def hashes(current):
     return {path: value['hash'] for path, value in current.items()}
 
 def engine_hash():
-    files = [SITE / 'build.py', SITE / 'drive_sources.py', SITE / 'sync_drive.py'] + sorted((SITE / 'assets').glob('*'))
+    files = [SITE / name for name in ('build.py', 'drive_sources.py', 'sync_drive.py', 'public_results.py', 'weekly_progress.py')] + sorted((SITE / 'assets').glob('*'))
     return hashlib.sha256(b''.join(p.read_bytes() for p in files if p.is_file() and p.name != 'desktop.ini')).hexdigest()
 
 def run_build(checkout):
@@ -146,6 +146,9 @@ def sync(publish=False, force=False):
                 shutil.copytree(SITE / name, checkout / name, ignore=shutil.ignore_patterns('desktop.ini'))
             shutil.copyfile(SITE / 'build.py', checkout / 'build.py')
             shutil.copyfile(SITE / 'drive_sources.py', checkout / 'drive_sources.py')
+            for name in ('public_results.py', 'weekly_progress.py'):
+                if (SITE / name).is_file():
+                    shutil.copyfile(SITE / name, checkout / name)
         selected, validation = prepare_checkout(checkout, current, previous)
         changes = git('status', '--porcelain', '--', 'content', 'docs', cwd=checkout) if publish else 'preview'
         commit, revision = previous.get('last_commit'), previous.get('revision')

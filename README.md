@@ -17,6 +17,14 @@
 
 결과 원본은 `content/latest-results.json`, `content/week1-results.md`, `content/records/`, `content/meeting/`에 보관한다. `python build.py`가 웹 결과를 생성하므로 기존 계획·가이드 동기화 뒤에도 최신 결과가 유지된다. 새 실험 결과는 이 파일들을 명시적으로 갱신한다.
 
+## 07 · 주차별 진행도
+
+[주차별 진행도](https://ys06146.github.io/quantum-team-dashboard/progress.html)는 소연·지우·예찬·서진·서희의 1–3주차 완료율을 함께 보여줍니다. 2026.11.12 사용자 요청으로 전원·전 주차를 0%에서 시작했습니다. 기존 실험 결과와 제출 점수에는 영향을 주지 않습니다.
+
+기존 주차 계획의 작업 수행(`work`), 산출물 준비(`output`), 완료 기준 확인(`validation`), 검토·전달(`handoff`)을 각각 25%로 계산합니다. `content/progress.json`의 해당 과제 `completed` 목록에 완료된 항목 이름을 넣고 `updated_at`을 갱신한 다음, `python build.py`로 생성한 결과와 함께 커밋·배포하세요. 예: 서진 1주차 `e1`의 `completed`가 `["work", "output"]`이면 50%입니다. 과제 접두사는 소연 `s`, 지우 `j`, 예찬 `y`, 서진 `e`, 서희 `c`입니다.
+
+웹페이지는 공유 기록을 보여주는 화면입니다. 퍼센트를 누르면 과제가 펼쳐지며, 웹에서 직접 체크·저장하지는 않습니다. 드라이브 계획을 다시 가져와도 진행 기록은 유지됩니다.
+
 ## 드라이브에서 수정하면 자동 반영
 
 계획은 팀 폴더의 `quantum-team-plan-share.html`, 가이드는 각 원본 `*_GUIDE.md` 또는 `.html`에서 수정합니다. Windows 작업 스케줄러가 로그인 시와 2분 간격으로 문서를 확인하고, 변환·링크 검사 후 GitHub Pages로 배포합니다. PC가 켜져 있고 Google Drive와 인터넷에 연결돼 있어야 합니다.

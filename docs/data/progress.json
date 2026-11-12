@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "updated_at": "2026-11-12",
+  "initialized_at": "2026-11-12",
+  "initialization_note": "사용자 요청에 따라 전원·전 주차를 0%에서 시작합니다.",
+  "tasks": {
+    "s1": {
+      "completed": []
+    },
+    "s2": {
+      "completed": []
+    },
+    "s3": {
+      "completed": []
+    },
+    "j1": {
+      "completed": []
+    },
+    "j2": {
+      "completed": []
+    },
+    "j3": {
+      "completed": []
+    },
+    "y1": {
+      "completed": []
+    },
+    "y2": {
+      "completed": []
+    },
+    "y3": {
+      "completed": []
+    },
+    "e1": {
+      "completed": []
+    },
+    "e2": {
+      "completed": []
+    },
+    "e3": {
+      "completed": []
+    },
+    "c1": {
+      "completed": []
+    },
+    "c2": {
+      "completed": []
+    },
+    "c3": {
+      "completed": []
+    }
+  }
+}
