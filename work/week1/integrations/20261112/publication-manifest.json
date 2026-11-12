@@ -1,0 +1,35 @@
+{
+  "note": "Public copies replace local machine root paths. Original source hashes and public copy hashes are separate. Submission members and their hashes remain unchanged.",
+  "files": [
+    {
+      "source_relative_path": "reports/THIRD_SUBMISSION_20261112.json",
+      "source_sha256": "de6fdb07d179a15a1d341d92474b67536abbad418c10d264da2bd1615b9b8540",
+      "public_file": "submission.json",
+      "public_sha256": "08a407e5a684f386c8f99cb674e9c874a4e22ffea1021238b98f0599437ac390"
+    },
+    {
+      "source_relative_path": "reports/yechan-integration-20261112/PROVENANCE.json",
+      "source_sha256": "158fa7ce257bdd3099c70cb5cada7b299491a9e327521c0f45e48a5bd5a88447",
+      "public_file": "provenance.json",
+      "public_sha256": "082ca9b9fea5cc95adfce2cc18ba923313fca28979062146ca6eeeaf2d35b19d"
+    },
+    {
+      "source_relative_path": "reports/runs/20261112T214736481423Z-full/invsqrt.json",
+      "source_sha256": "a062379d3c527801c3ef35c5eff6786788cbcc0bd771e8fb6e4814229c73c635",
+      "public_file": "invsqrt-full.json",
+      "public_sha256": "3dbbc649c42a2da3e63382b1c678d39690d220c1aa7a3247a3de929041c3f78b"
+    },
+    {
+      "source_relative_path": "reports/yechan-integration-20261112/yechan-full-delta12-result28.json",
+      "source_sha256": "f873af1c7cdd7f84e810eefe1a9c7c36582bb502f68192dd48ac6814b1cce2e7",
+      "public_file": "yechan-source-full.json",
+      "public_sha256": "af31218a0ac3b973b9629d2a118a690e3a2fc476a9df2c510e466269d87894fa"
+    },
+    {
+      "source_relative_path": "artifacts/submission-yechan-invsqrt-dqi-20261112.manifest.json",
+      "source_sha256": "7a7c7742da742cab1468f5054f9e2070817122f80e9f9e2b62a15adeec01824d",
+      "public_file": "archive-manifest.json",
+      "public_sha256": "1be461efdfb63121862625bbbfdd746470debf30a78de33766b78ce94b913aaf"
+    }
+  ]
+}
