@@ -16,6 +16,8 @@ PEOPLE=[
  ('seohee','서희','화학 해석 · 근사 검토','화학 지표를 해석하고 지우의 근사 후보를 검토해요.','문제 설명 · 지표표 · 검토 메모','Chemistry')
 ]
 BASE=json.loads((ROOT/'content/baselines.json').read_text(encoding='utf-8'))
+LATEST_PATH=ROOT/'content/latest-results.json'
+LATEST=json.loads(LATEST_PATH.read_text(encoding='utf-8')) if LATEST_PATH.exists() else None
 
 SUMMARY_PATH=ROOT/'content/plan-summary.json'
 SUMMARY=json.loads(SUMMARY_PATH.read_text(encoding='utf-8')) if SUMMARY_PATH.exists() else {}
@@ -70,6 +72,7 @@ def markdown(s):
 def page(title,active,body,depth=0,extra_script=''):
     p='../'*depth
     nav=[('home','index.html','전체 현황'),('plan','plan.html','3주 계획 · 역할'),('guides','guides.html','개인별 가이드'),('results','results.html','검증 결과'),('resources','resources.html','자료 · 실행 안내')]
+    if LATEST:nav.insert(3,('latest','week1.html','1주차 작업 결과'))
     links=''.join(f'<a href="{p+url}"'+(' aria-current="page"' if key==active else '')+f'><span class="nav-no">{i:02}</span>{text}</a>' for i,(key,url,text) in enumerate(nav,1))
     return f'''<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="referrer" content="no-referrer"><meta name="description" content="다섯 명의 양자 회로 팀을 위한 3주 실행 계획, 개인별 가이드와 공식 기준 예제 검증 기록."><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'"><title>{esc(title)} · Quantum Team</title><link rel="stylesheet" href="{p}assets/styles.css"><script src="{p}assets/app.js" defer></script>{extra_script}</head><body><div class="shell">
 <aside class="sidebar"><a class="brand" href="{p}index.html"><span class="brand-mark" aria-hidden="true">Q</span><span>Quantum Team<small>CIRCUIT COMPILATION</small></span></a><button class="menu-button" type="button" aria-controls="site-nav" aria-expanded="false">메뉴</button><div class="side-caption">TEAM WORKSPACE</div><nav class="side-nav" id="site-nav" aria-label="대시보드">{links}</nav><div class="side-bottom"><strong>Google Quantum AI</strong>5인 팀 · 3주 실행안<br>{esc(SCHEDULE)}</div></aside>
@@ -92,12 +95,18 @@ def build():
     OUT.mkdir(exist_ok=True)
     for name in ['styles.css','app.js']:
         (OUT/'assets').mkdir(exist_ok=True);shutil.copyfile(ROOT/'assets'/name,OUT/'assets'/name)
+    if LATEST:
+        from public_results import build_public_results
+        build_public_results(ROOT,OUT,page,markdown)
     tasks=json.loads((ROOT/'content/tasks.json').read_text(encoding='utf-8'))
     write('assets/plan.js','const PLAN_TASKS='+json.dumps(tasks,ensure_ascii=False)+';\n'+(ROOT/'assets/plan-runtime.js').read_text(encoding='utf-8'))
     home='''<section class="hero"><div><span class="eyebrow">ONE TEAM, THREE BENCHMARKS</span><h1>다음 작업을,<br>같은 기준으로.</h1><p>각자의 역할과 읽을 파일, 검증된 기준값을 한곳에 모았어요. 내 가이드부터 열고 이번 주 산출물을 확인하세요.</p><div class="hero-actions"><a class="button primary" href="guides.html">내 가이드 찾기 <span aria-hidden="true">→</span></a><a class="button" href="plan.html">3주 계획 보기</a></div></div><div class="phases"><div class="phase"><span class="phase-no">W1</span><div><strong>재현 · 기준 확정</strong><small>11/09–15 · 공통 언어와 유효본 확보</small></div></div><div class="phase"><span class="phase-no">W2</span><div><strong>후보 실험 · 선별</strong><small>11/16–22 · 근사·정밀도·회로 비교</small></div></div><div class="phase"><span class="phase-no">W3</span><div><strong>동결 · 독립 재검증</strong><small>11/23–29 · 재현 가능한 제출 묶음</small></div></div></div></section>'''
     if SUMMARY.get('phases'):
         phase_html='<div class="phases">'+''.join('<div class="phase"><span class="phase-no">W'+str(i)+'</span><div><strong>'+esc(p['title'])+'</strong><small>'+esc(p['label'])+' · '+esc(p['detail'])+'</small></div></div>' for i,p in enumerate(SUMMARY['phases'],1))+'</div></section>'
         home=home[:home.index('<div class="phases">')]+phase_html
+    if LATEST:
+        from public_results import banner
+        home+=banner(LATEST)
     home+='<section class="section"><div class="section-title"><div><h2>검증된 출발점</h2><p>공식 기본 예제 3종의 전체 검증 기록</p></div><a href="results.html">결과 모두 보기 →</a></div>'+benchmarks()+'<p class="section-note">각 과제의 비용식은 서로 달라요. 같은 과제의 기준선과 후보를 비교하세요. 로컬 PASS는 Kaggle 제출 완료를 뜻하지 않습니다.</p></section>'
     home+='<section class="section"><div class="section-title"><div><h2>각자의 첫 주</h2><p>파일을 다운로드하지 않고 가이드를 바로 읽을 수 있어요.</p></div><a href="plan.html">역할 자세히 →</a></div>'+team_cards()+'</section>'
     home+='''<section class="section"><div class="section-title"><h2>후보가 제출본이 되기까지</h2></div><div class="handoff"><span><strong>예찬 · 지우</strong> 후보 생성</span><span class="arrow" aria-hidden="true">→</span><span><strong>서희</strong> 화학 지표 검토</span><span class="arrow" aria-hidden="true">→</span><span><strong>서진</strong> 회로 통합</span><span class="arrow" aria-hidden="true">→</span><span><strong>소연</strong> 독립 비교</span></div><p class="section-note">서희의 검토는 화학 후보에 해당해요. 채택 결과와 파일 버전은 함께 기록합니다.</p></section>'''
@@ -120,6 +129,9 @@ def build():
         write(f'guides/{slug}.html',page(name+' 가이드','guides',intro+'<div class="doc-layout"><article class="document">'+body+f'<p><a href="{slug}.md" download>Markdown 가이드 내려받기</a></p></article>'+toc+'</div>',depth=1))
         write(f'guides/{slug}.md',md)
     result_body='<div class="page-head"><span class="eyebrow">VERIFIED BASELINES</span><h1>검증 결과와 비교 기준</h1><p>공식 기본 예제의 로컬 full 결과를 공개용 요약으로 정리했어요. 실행 환경은 과제별 원본 기록에 따라 다릅니다.</p></div>'+benchmarks()
+    if LATEST:
+        from public_results import banner
+        result_body=banner(LATEST)+result_body
     for task in ['invsqrt','dqi','dfthcsos']:
         b=BASE[task];r=b['result']
         result_body+=f'<section class="result-section document" id="{task}"><h2>{LABELS[task]} <span class="pass">FULL PASS</span></h2><p>{SUBTITLES[task]} · 기록 {b["recorded_date"]}</p><div class="table-wrap"><table><thead><tr><th>항목</th><th>기록값</th></tr></thead><tbody>'

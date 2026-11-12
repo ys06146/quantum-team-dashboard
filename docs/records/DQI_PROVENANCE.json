@@ -1,0 +1,59 @@
+{
+  "candidate_id": "dqi-public-syed-v11",
+  "status": "ADOPTED_FOR_SUBMISSION",
+  "human_independent_review": "PENDING_2026-11-15",
+  "scope": "DQI circuit substitution and submission integration only",
+  "original_author": "Syed Asad Ali (syed3000)",
+  "source_dataset": "https://www.kaggle.com/datasets/syed3000/vqcc-own-circuit-portfolio",
+  "source_version": 11,
+  "source_sha256": "3ec03d5d3ae3d8fc2d7bf83d0e9b841f54d60f1ee900ac021be45d98526e5f20",
+  "binary_modified": false,
+  "source_notebook": "https://www.kaggle.com/code/syed3000/vqcc-own-circuit-portfolio-notebook",
+  "discussion_context": "https://www.kaggle.com/competitions/google-verifiable-quantum-circuit-compilation/discussion/753923",
+  "license_declared_by_publisher": "Apache 2.0; captured Kaggle dataset metadata and notebook",
+  "credits": [
+    "Syed Asad Ali / C1 decoder",
+    "SomeJoint team / Agniv Banerjee: kit and narrow return",
+    "Ali Haydar Ozdag: carried pole flags",
+    "Khattar and Gidney: measurement erasure and conditionally clean ladders",
+    "Earlier public lineage documented in captured source notebook",
+    "Google Quantum AI: official baseline, verifiers and kickmix",
+    "James Barlow (manwithacat): public circuit ledger and discussion briefing"
+  ],
+  "seojin_contribution": [
+    "Public discussion research and candidate selection",
+    "Source/license/hash capture",
+    "Unmodified official full verification and two predeclared robustness draws",
+    "DQI-only integration, full-PASS-bound ZIP packaging and Kaggle submission"
+  ],
+  "teammate_scope_preserved": {
+    "Yechan": "invsqrt unchanged official baseline",
+    "Jiwoo_Seohui": "chemistry NPZ and all ten ANGLE circuits unchanged official baseline",
+    "Soyeon": "independent human reproduction remains pending"
+  },
+  "baseline": {
+    "score": 24439463583672.93,
+    "num_qubits": 1893,
+    "toffoli_count": 5725108.382109375,
+    "verified_shots": 102400
+  },
+  "candidate": {
+    "score": 374878862458.1053,
+    "num_qubits": 892,
+    "toffoli_count": 395507.3109863281,
+    "verified_shots": 102400,
+    "value_errors": 0,
+    "phase_errors": 0
+  },
+  "dqi_cost_improvement": 65.19296239703077,
+  "local_composite_estimate": 4.024700540137955,
+  "server_score": 4.02469,
+  "server_score_note": "Kaggle Complete / Public Score observed 2026-11-11T16:58:06Z; local estimate retained separately.",
+  "robustness_total_shots": 307200,
+  "limitations": [
+    "Finite fuzz verification is not a proof for every input. Publisher documents rare failures; all three local draws passed with zero value/phase errors.",
+    "Reproduction pins a public binary; a complete upstream generator rebuild has not been independently audited.",
+    "This is an external public circuit integration, not a claim of an independently invented decoder."
+  ],
+  "public_export_note": "Machine-specific paths replaced with placeholders. Numerical results and input/verifier hashes preserved; source record SHA refers to the original Drive file."
+}

@@ -1,0 +1,73 @@
+{
+  "published_date": "2026-11-12",
+  "records": [
+    {
+      "path": "FIRST_SUBMISSION_20261111.json",
+      "source_record": "reports/FIRST_SUBMISSION_20261111.json",
+      "source_sha256": "9ed97f385785ce74cface0a01a810b74a6674acd7bbcfa062e1ef47950a99f58",
+      "public_sha256": "619b3b3ba723e60913e41c44727cc737b2cec80550161dc3ecd46a5ff89b1fc8"
+    },
+    {
+      "path": "SECOND_SUBMISSION_20261111.json",
+      "source_record": "reports/SECOND_SUBMISSION_20261111.json",
+      "source_sha256": "173e0cdca3b8608093085a3d04b6ed18011e92d021114a41c0874a28cd89e6ad",
+      "public_sha256": "17460befaa263b32327658918b1441a599b0fa2b61684036b2b2cd408f00a9b6"
+    },
+    {
+      "path": "DQI_PROVENANCE.json",
+      "source_record": "reports/dqi-public-syed-v11-provenance/PROVENANCE.json",
+      "source_sha256": "5c354199e4f238273857e5988a25473783a932835a0f78b661c39e9c45b0d707",
+      "public_sha256": "b47b7ec54dc2f06ffef144f5bddd793e3825b4b01ef39eeb19d4be398ea139c2"
+    },
+    {
+      "path": "DQI_ROBUSTNESS.json",
+      "source_record": "reports/dqi-public-syed-v11-robustness/summary.json",
+      "source_sha256": "b33132ccc4c670400668627a70bbba6eda7062f76bbaa96a5108e5049dd510c6",
+      "public_sha256": "e9b2cdfadc17ccaa0e8f445453dcb006b3ddda8c0b8acbde07248d3aa93671b8"
+    },
+    {
+      "path": "REPRODUCTION_20261111.json",
+      "source_record": "reports/REPRODUCTION_20261111.json",
+      "source_sha256": "8884e8e15c5f14756caca54f1596bc6e1e4a29c73e1832a1d5598b7d5b156066",
+      "public_sha256": "f9728d301bf811d24275581684f4aefa074b6ddec5a52ab0e02c4f4e7f8f68ec"
+    },
+    {
+      "path": "DQI_BOTTLENECK.json",
+      "source_record": "reports/DQI_BOTTLENECK.json",
+      "source_sha256": "dcd6b4d53d87906277e645cb9a6756f91b9ea965370f4f820634377cdfef1b24",
+      "public_sha256": "99d11026c1d74e968ec489ef35414489e1e38ebc3e218bffc26047b7209d1be9"
+    },
+    {
+      "path": "SUBMISSION_MANIFEST.json",
+      "source_record": "artifacts/submission-dqi-public-syed-v11-20261111.manifest.json",
+      "source_sha256": "05d62fa0c1f73e2c74fcc53cb98c447eac52b2f39125bf92af325ad064d69305",
+      "public_sha256": "6f25910bda657ee769f9011afdce977d76c446d7f85974c5abb292674c84befb"
+    },
+    {
+      "path": "full/invsqrt-baseline.json",
+      "source_record": "reports/runs/20261111T141912715836Z-full/invsqrt.json",
+      "source_sha256": "2666119ad6e8c7e803636dd0916bb02e23964ceef5398fbf07d12f5ab4beb874",
+      "public_sha256": "19e62bc71611ebed3f678fab9c406700da8cb5c53708be0601f99479c58dfb3d"
+    },
+    {
+      "path": "full/dqi-baseline.json",
+      "source_record": "reports/runs/20261111T141912715836Z-full/dqi.json",
+      "source_sha256": "3d3592acb165572d71d6be38ea724ef0412b3127a214f2423c95663863b50e29",
+      "public_sha256": "f7f83dabc62d93dbcde7a79da646e2c1aedf63bcc06c3e90ed98e758dc4bd2f8"
+    },
+    {
+      "path": "full/dfthcsos-baseline.json",
+      "source_record": "reports/runs/20261111T141912715836Z-full/dfthcsos.json",
+      "source_sha256": "d4864d233146211a99892deae0c0cdafd9f162a5706e8a293959f232838a14d6",
+      "public_sha256": "471b2c33c7ee6ea5529a54d52f599e49f92e55228522dd1f66ea6c488b0d9e7a"
+    },
+    {
+      "path": "full/dqi-public-v11.json",
+      "source_record": "reports/runs/20261111T161357555709Z-full/dqi.json",
+      "source_sha256": "e18f33b98b013a08f0662f3ddb08b1b120f85442a495bb1f56e666705e3f4d1f",
+      "public_sha256": "a421a99dcd1c8ffd47fa113275ebdf0fe1e4d728db067a75b95c5611dee8e005"
+    }
+  ],
+  "source_files_location": "Shared team Drive: jjeya/seojin_work/week1",
+  "note": "Original raw logs, binary circuit files and submission ZIP remain in shared Drive; these are readable public evidence copies."
+}

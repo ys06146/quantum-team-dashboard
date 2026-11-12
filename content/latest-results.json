@@ -1,0 +1,26 @@
+{
+  "updated_at": "2026-11-12",
+  "score_checked_at_utc": "2026-11-11T16:58:06Z",
+  "status": "COMPLETE",
+  "previous_public_score": 1.0,
+  "public_score": 4.02469,
+  "local_estimate": 4.024700540137955,
+  "dqi_cost_improvement": 65.19296239703077,
+  "candidate": {
+    "score": 374878862458.1053,
+    "num_qubits": 892,
+    "toffoli_count": 395507.3109863281,
+    "verified_shots": 102400,
+    "value_errors": 0,
+    "phase_errors": 0
+  },
+  "baseline": {
+    "score": 24439463583672.93,
+    "num_qubits": 1893,
+    "toffoli_count": 5725108.382109375,
+    "verified_shots": 102400
+  },
+  "total_dqi_shots": 307200,
+  "independent_teammate_review": "Pending at 2026-11-15 meeting",
+  "scope": "Only DQI replaced; invsqrt and chemistry remain official baselines."
+}

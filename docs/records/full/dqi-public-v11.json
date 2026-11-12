@@ -1,0 +1,150 @@
+{
+  "task": "dqi",
+  "profile": "full",
+  "status": "PASS",
+  "verification_scope": "official default coverage",
+  "started_at_utc": "2026-11-11T16:13:57.568731+00:00",
+  "command": [
+    "<REPRO_ROOT>/.venv-repro/bin/python",
+    "-u",
+    "vendor/competition/verifiers/dqi/verify_submission_dqi.py",
+    "artifacts/candidates/dqi-public-syed-v11/dqi.kmb",
+    "--max-workers",
+    "4"
+  ],
+  "working_directory": "<REPRO_ROOT>",
+  "input": "artifacts/candidates/dqi-public-syed-v11/dqi.kmb",
+  "log": "logs/20261111T161357555709Z-full/dqi.log",
+  "salt": "",
+  "seed": "official hash-derived default",
+  "python": "3.12.3 (main, Mar  3 2026, 12:15:18) [GCC 13.3.0]",
+  "platform": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "original_verifier_modified": false,
+  "execution_adapter": null,
+  "input_files": [
+    {
+      "path": "artifacts/candidates/dqi-public-syed-v11/dqi.kmb",
+      "bytes": 529253390,
+      "sha256": "3ec03d5d3ae3d8fc2d7bf83d0e9b841f54d60f1ee900ac021be45d98526e5f20"
+    }
+  ],
+  "verifier_sources": [
+    {
+      "path": "vendor/competition/verifiers/dfthcsos/__init__.py",
+      "bytes": 326,
+      "sha256": "81915e324cc0cade67f52a54b7a51991fd96abaea94d1f8a4d423dae20e57348"
+    },
+    {
+      "path": "vendor/competition/verifiers/dfthcsos/example_submission/angle_k_reference_circuit.py",
+      "bytes": 10258,
+      "sha256": "8daccdca69f2d718b0176cd9281803df84a988ea5ac6c167fbb02e461ac2b371"
+    },
+    {
+      "path": "vendor/competition/verifiers/dfthcsos/scoreinfra/__init__.py",
+      "bytes": 280,
+      "sha256": "be90e0d503d5c20dcac0102af638b9a4ccad0341daa5baa5d49216a259e4516f"
+    },
+    {
+      "path": "vendor/competition/verifiers/dfthcsos/scoreinfra/circuits.py",
+      "bytes": 24418,
+      "sha256": "fc027b52fdcebe14404f403a089122485d097ed65d03e6d989623d620b1ab68c"
+    },
+    {
+      "path": "vendor/competition/verifiers/dfthcsos/scoreinfra/costs_prepare.py",
+      "bytes": 8335,
+      "sha256": "7f1e190c42fc5325f3e6689fbbef51f95b0cb12f1c828cda92b6c088e72206da"
+    },
+    {
+      "path": "vendor/competition/verifiers/dfthcsos/scoreinfra/dfthc_math.py",
+      "bytes": 17608,
+      "sha256": "ae82898d47a7a86b96378fb906e0f8a9f46003065cf19c7c09952a123b5b5af8"
+    },
+    {
+      "path": "vendor/competition/verifiers/dfthcsos/scoreinfra/reference.py",
+      "bytes": 13180,
+      "sha256": "a2d5a63191d655729e29f0fde1e85fe4630bf896a91a63bb894d8d7daf71ed39"
+    },
+    {
+      "path": "vendor/competition/verifiers/dfthcsos/verify.py",
+      "bytes": 31752,
+      "sha256": "0775be7a528922367caebe9e4d051d6199811f1aefeaa4b793eaaa4621b8ec9d"
+    },
+    {
+      "path": "vendor/competition/verifiers/dqi/__init__.py",
+      "bytes": 87,
+      "sha256": "01c870aa9763f4e4357fc6654bff1d3296cec995bd0943f87b4a48946ada5b40"
+    },
+    {
+      "path": "vendor/competition/verifiers/dqi/dqi_reference_circuit.py",
+      "bytes": 30450,
+      "sha256": "2b8e1b80a806157c333a7e308eaf2499ee09de499efbc05875202c327959959e"
+    },
+    {
+      "path": "vendor/competition/verifiers/dqi/verify_submission_dqi.py",
+      "bytes": 20959,
+      "sha256": "f14274bc0943fb9769ddb01131be6063191a15009fe1caf1d4bdd9fd25194e65"
+    },
+    {
+      "path": "vendor/competition/verifiers/invsqrt/__init__.py",
+      "bytes": 84,
+      "sha256": "e9a6ecf253c343528578be5fa92eb820ccade63333aebb784552fb4ae75dbc0b"
+    },
+    {
+      "path": "vendor/competition/verifiers/invsqrt/nr_reference_circuit.py",
+      "bytes": 18862,
+      "sha256": "bb90330dcf774f7b502de471293facba67f27952cc8808fe4a9970a9b1322e23"
+    },
+    {
+      "path": "vendor/competition/verifiers/invsqrt/verify_submission_invsqrt.py",
+      "bytes": 17210,
+      "sha256": "ddef520dec6b68d1cf0a6f328ddd36d79eb84570b9192cf3f7acaf073f06733a"
+    }
+  ],
+  "pid": 614,
+  "exit_code": 0,
+  "official_result": {
+    "status": "PASS",
+    "score": 374878862458.1053,
+    "m": 4095,
+    "n": 70,
+    "degree": 12,
+    "r": 2016,
+    "verified_shots": 102400,
+    "value_errors": 0,
+    "phase_errors": 0,
+    "empirical_error_rate": 0.0,
+    "effective_error_rate": 0.0008660587301657926,
+    "log2_delta": -128.0,
+    "repetition_factor": 1.1912604648115832,
+    "mean_error_weight": 31.046737331746634,
+    "toffoli_count": 395507.3109863281,
+    "max_toffoli_count": 395804,
+    "reaction_depth": 45702,
+    "num_ops": 58288347,
+    "shot_operation_counts": {
+      "NEG": 32865255,
+      "BIT_INVERT": 143848877174,
+      "BIT_STORE0": 11597516800,
+      "BIT_STORE1": 2472996182,
+      "X": 25559958470,
+      "Z": 2234139441,
+      "R": 5740368985,
+      "HMR": 8074064985,
+      "CX": 5319343738174,
+      "CZ": 41242415597,
+      "SWAP": 162110771200,
+      "CSWAP": 1239859200,
+      "CCX": 39120825161,
+      "CCZ": 139264284,
+      "INFO_TAG": 1812480000,
+      "POP_CONDITION": 419020800,
+      "PUSH_CONDITION": 419020800
+    },
+    "num_qubits": 892,
+    "num_bits": 101418,
+    "circuit_sha256": "3ec03d5d3ae3d8fc2d7bf83d0e9b841f54d60f1ee900ac021be45d98526e5f20"
+  },
+  "elapsed_seconds": 51.065,
+  "finished_at_utc": "2026-11-11T16:14:48.649445+00:00",
+  "public_export_note": "Machine-specific paths replaced with placeholders. Numerical results and input/verifier hashes preserved; source record SHA refers to the original Drive file."
+}

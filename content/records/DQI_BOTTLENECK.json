@@ -1,0 +1,62 @@
+{
+  "status": "PASS",
+  "checked_at_utc": "2026-11-11T14:21:52.303845+00:00",
+  "record": "reports/runs/20261107T111402131264Z-full/dqi.json",
+  "record_sha256": "a3a0ed56ad3459cb37a8df6eab90e9be012f975da7cc46dccfd7a26fba1929c0",
+  "verified_shots": 102400,
+  "value_errors": 0,
+  "phase_errors": 0,
+  "Q": 1893,
+  "syndrome_qubits": 840,
+  "ancilla_qubits": 1053,
+  "R": 1.1912604648115832,
+  "T_per_shot": 5725108.382109375,
+  "cost": 24439463583672.93,
+  "effective_error_rate": 0.0008660587301657926,
+  "gate_contributions": [
+    {
+      "gate": "CCX",
+      "per_shot": 4552492.382109375,
+      "percent_of_T": 79.51801220629542
+    },
+    {
+      "gate": "CSWAP",
+      "per_shot": 1172616.0,
+      "percent_of_T": 20.481987793704583
+    }
+  ],
+  "sensitivity_hypotheses": [
+    {
+      "hypothesis": "Q -5%",
+      "cost_ratio": 0.9025,
+      "reduction_percent": 9.750000000000004,
+      "assumption": "R unchanged; same verifier validity. Not a measured candidate."
+    },
+    {
+      "hypothesis": "Q -10%",
+      "cost_ratio": 0.81,
+      "reduction_percent": 18.999999999999993,
+      "assumption": "R unchanged; same verifier validity. Not a measured candidate."
+    },
+    {
+      "hypothesis": "T -10%",
+      "cost_ratio": 0.9,
+      "reduction_percent": 9.999999999999998,
+      "assumption": "R unchanged; same verifier validity. Not a measured candidate."
+    },
+    {
+      "hypothesis": "Q -5%, T -10%",
+      "cost_ratio": 0.81225,
+      "reduction_percent": 18.775,
+      "assumption": "R unchanged; same verifier validity. Not a measured candidate."
+    }
+  ],
+  "decision": "Keep full-PASS baseline in week 2. Prioritize ancilla lifetime/reuse review and local CCX/CSWAP reductions. Defer decoder rewrite.",
+  "limits": [
+    "Gate-family decomposition is measured from the official run.",
+    "Forward EEA / Chien-Forney / reverse EEA stage percentages were not profiled.",
+    "Scenarios are sensitivity calculations, not measured improvements.",
+    "This agent analysis is not a teammate review."
+  ],
+  "public_export_note": "Machine-specific paths replaced with placeholders. Numerical results and input/verifier hashes preserved; source record SHA refers to the original Drive file."
+}

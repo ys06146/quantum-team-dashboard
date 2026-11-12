@@ -1,0 +1,130 @@
+{
+  "plan": {
+    "salts": [
+      "jjeya-dqi-public-20261111-a",
+      "jjeya-dqi-public-20261111-b"
+    ],
+    "declared_at_utc": "2026-11-11T16:15:18.842992+00:00",
+    "circuit_sha256": "3ec03d5d3ae3d8fc2d7bf83d0e9b841f54d60f1ee900ac021be45d98526e5f20",
+    "verifier_sha256": "f14274bc0943fb9769ddb01131be6063191a15009fe1caf1d4bdd9fd25194e65",
+    "num_shots_each": 102400,
+    "purpose": "Independent predeclared draws, not seed selection; all results retained."
+  },
+  "results": [
+    {
+      "salt": "jjeya-dqi-public-20261111-a",
+      "exit_code": 0,
+      "command": [
+        "<REPRO_ROOT>/.venv-repro/bin/python",
+        "-u",
+        "<REPRO_ROOT>/vendor/competition/verifiers/dqi/verify_submission_dqi.py",
+        "<REPRO_ROOT>/artifacts/candidates/dqi-public-syed-v11/dqi.kmb",
+        "--max-workers",
+        "4",
+        "--salt",
+        "jjeya-dqi-public-20261111-a"
+      ],
+      "elapsed_seconds": 48.462,
+      "official_result": {
+        "status": "PASS",
+        "score": 374878981901.1417,
+        "m": 4095,
+        "n": 70,
+        "degree": 12,
+        "r": 2016,
+        "verified_shots": 102400,
+        "value_errors": 0,
+        "phase_errors": 0,
+        "empirical_error_rate": 0.0,
+        "effective_error_rate": 0.0008660587301657926,
+        "log2_delta": -128.0,
+        "repetition_factor": 1.1912604648115832,
+        "mean_error_weight": 31.046737331746634,
+        "toffoli_count": 395507.43700195313,
+        "max_toffoli_count": 395804,
+        "reaction_depth": 45702,
+        "num_ops": 58288347,
+        "shot_operation_counts": {
+          "NEG": 32871644,
+          "BIT_INVERT": 143857375554,
+          "BIT_STORE0": 11597516800,
+          "BIT_STORE1": 2472993094,
+          "X": 25559994110,
+          "Z": 2234173842,
+          "R": 5740384283,
+          "HMR": 8074080283,
+          "CX": 5319343135842,
+          "CZ": 41243011877,
+          "SWAP": 162110771200,
+          "CSWAP": 1239859200,
+          "CCX": 39120839759,
+          "CCZ": 139262590,
+          "INFO_TAG": 1812480000,
+          "POP_CONDITION": 419020800,
+          "PUSH_CONDITION": 419020800
+        },
+        "num_qubits": 892,
+        "num_bits": 101418,
+        "circuit_sha256": "3ec03d5d3ae3d8fc2d7bf83d0e9b841f54d60f1ee900ac021be45d98526e5f20"
+      }
+    },
+    {
+      "salt": "jjeya-dqi-public-20261111-b",
+      "exit_code": 0,
+      "command": [
+        "<REPRO_ROOT>/.venv-repro/bin/python",
+        "-u",
+        "<REPRO_ROOT>/vendor/competition/verifiers/dqi/verify_submission_dqi.py",
+        "<REPRO_ROOT>/artifacts/candidates/dqi-public-syed-v11/dqi.kmb",
+        "--max-workers",
+        "4",
+        "--salt",
+        "jjeya-dqi-public-20261111-b"
+      ],
+      "elapsed_seconds": 49.175,
+      "official_result": {
+        "status": "PASS",
+        "score": 374878755335.17755,
+        "m": 4095,
+        "n": 70,
+        "degree": 12,
+        "r": 2016,
+        "verified_shots": 102400,
+        "value_errors": 0,
+        "phase_errors": 0,
+        "empirical_error_rate": 0.0,
+        "effective_error_rate": 0.0008660587301657926,
+        "log2_delta": -128.0,
+        "repetition_factor": 1.1912604648115832,
+        "mean_error_weight": 31.046737331746634,
+        "toffoli_count": 395507.19796875,
+        "max_toffoli_count": 395804,
+        "reaction_depth": 45702,
+        "num_ops": 58288347,
+        "shot_operation_counts": {
+          "NEG": 32869024,
+          "BIT_INVERT": 143855122065,
+          "BIT_STORE0": 11597516800,
+          "BIT_STORE1": 2472980167,
+          "X": 25559935076,
+          "Z": 2234242148,
+          "R": 5740357230,
+          "HMR": 8074053230,
+          "CX": 5319343556590,
+          "CZ": 41243974974,
+          "SWAP": 162110771200,
+          "CSWAP": 1239859200,
+          "CCX": 39120813102,
+          "CCZ": 139264770,
+          "INFO_TAG": 1812480000,
+          "POP_CONDITION": 419020800,
+          "PUSH_CONDITION": 419020800
+        },
+        "num_qubits": 892,
+        "num_bits": 101418,
+        "circuit_sha256": "3ec03d5d3ae3d8fc2d7bf83d0e9b841f54d60f1ee900ac021be45d98526e5f20"
+      }
+    }
+  ],
+  "public_export_note": "Machine-specific paths replaced with placeholders. Numerical results and input/verifier hashes preserved; source record SHA refers to the original Drive file."
+}
