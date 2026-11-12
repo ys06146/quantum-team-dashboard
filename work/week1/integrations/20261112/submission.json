@@ -16,8 +16,10 @@
   "url": "https://www.kaggle.com/competitions/google-verifiable-quantum-circuit-compilation/submissions",
   "accepted_screenshot": "reports/THIRD_SUBMISSION_20261112_accepted.png",
   "provenance": "reports/yechan-integration-20261112/PROVENANCE.json",
-  "status": "PENDING",
-  "public_score": null,
-  "last_checked_at_utc": "2026-11-12T21:55:01.682060+00:00",
-  "result_observation": "Kaggle submissions page: Yechan invsqrt integration submission.zip, author seojinskr, PENDING."
+  "status": "COMPLETE",
+  "public_score": 4.11623,
+  "last_checked_at_utc": "2026-11-12T22:27:56.029326+00:00",
+  "result_observation": "Kaggle submissions page: Yechan invsqrt integration submission.zip, author seojinskr, COMPLETE. Public Score 4.11623.",
+  "score_checked_at_utc": "2026-11-12T22:27:56.029326+00:00",
+  "complete_screenshot": "reports/THIRD_SUBMISSION_20261112_complete.png"
 }

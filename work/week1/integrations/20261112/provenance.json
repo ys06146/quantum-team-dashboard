@@ -1,5 +1,5 @@
 {
-  "status": "SUBMISSION_PENDING",
+  "status": "SUBMISSION_COMPLETE",
   "checked_at_utc": "2026-11-12T21:52:56.192154+00:00",
   "candidate_author": "Yechan",
   "integration_author": "Seojin",
@@ -49,7 +49,7 @@
   "chemistry": "Unchanged official sample, previous full-PASS evidence retained",
   "previous_public_score": 4.02469,
   "local_composite_estimate": 4.116238835774176,
-  "public_score": null,
+  "public_score": 4.11623,
   "archive": "artifacts\\submission-yechan-invsqrt-dqi-20261112.zip",
   "archive_sha256": "b4b759fbeaeccc4154c65bb4a8c14dc6e173befe9bed9eb4d0384a8c07e10edc",
   "scope": "Integration only; Yechan experiment branch and other teammate work were not modified."
