@@ -66,6 +66,24 @@
       "source_record": "reports/runs/20261111T161357555709Z-full/dqi.json",
       "source_sha256": "e18f33b98b013a08f0662f3ddb08b1b120f85442a495bb1f56e666705e3f4d1f",
       "public_sha256": "a421a99dcd1c8ffd47fa113275ebdf0fe1e4d728db067a75b95c5611dee8e005"
+    },
+    {
+      "path": "THIRD_SUBMISSION_20261112.json",
+      "source_record": "reports/THIRD_SUBMISSION_20261112.json",
+      "source_sha256": "195b218c288950b3625242d49d98e46bfd5725174a2d88cd3e4bd5b4f4682ed4",
+      "public_sha256": "0d2bbe80ad21198bd9e3b730696f59783255f10395976bc4a750e16cdfea9c0f"
+    },
+    {
+      "path": "YECHAN_INTEGRATION.json",
+      "source_record": "reports/yechan-integration-20261112/PROVENANCE.json",
+      "source_sha256": "1aa1aa30dd6f398fb2a9f69e4ee3bcca00e9b43b8eeaa0c289cc2f5510e028ae",
+      "public_sha256": "1555f4f067bf93acaded082e9240478ee411d0d5934fe26cd8f16d216d2e7ae1"
+    },
+    {
+      "path": "full/invsqrt-yechan.json",
+      "source_record": "reports/runs/20261112T214736481423Z-full/invsqrt.json",
+      "source_sha256": "a062379d3c527801c3ef35c5eff6786788cbcc0bd771e8fb6e4814229c73c635",
+      "public_sha256": "3dbbc649c42a2da3e63382b1c678d39690d220c1aa7a3247a3de929041c3f78b"
     }
   ],
   "source_files_location": "Shared team Drive: jjeya/seojin_work/week1",

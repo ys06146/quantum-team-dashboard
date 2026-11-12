@@ -7,9 +7,9 @@ def banner(data):
     return f'''<section class="section reading-note" aria-label="최신 제출 결과">
 <span class="eyebrow">1주차 작업 결과 · {escape(data['updated_at'])} 공개</span>
 <h2>실제 공개 점수 1.00000 → {score}</h2>
-<p>DQI 개선본 통합 제출의 채점이 완료됐어요. DQI 비용은 약 65.19배 개선됐고, 다른 두 과제는 공식 기준본을 유지했습니다.</p>
+<p>예찬의 invsqrt 후보와 공개 DQI 개선본을 합친 3차 제출이 채점 완료됐어요. invsqrt 비용은 6.52% 감소했고 DQI 비용은 약 65.19배 개선됐습니다. 화학은 공식 기준본입니다.</p>
 <div class="hero-actions"><a class="button primary" href="week1.html">작업 결과와 검증 근거</a><a class="button" href="meeting/jjeya-week1-meeting.html">12장 발표 자료</a><a class="button" href="speaker-notes.html">발표 대본</a></div>
-<p class="section-note">점수 확인 2026.11.11 · 팀원별 결과와 독립 재현은 15일 미팅에서 확인</p></section>'''
+<p class="section-note">점수 확인 2026.11.12 · 예찬 후보 통합 완료 · 화학 결과와 독립 검토는 15일 확인</p></section>'''
 
 def build_public_results(root,out,page,markdown):
     for dirname in ['records','meeting']:
@@ -21,7 +21,7 @@ def build_public_results(root,out,page,markdown):
     latest=json.loads((root/'content/latest-results.json').read_text(encoding='utf-8'))
     report=(root/'content/week1-results.md').read_text(encoding='utf-8')
     body,_=markdown(report)
-    intro='<div class="page-head"><span class="eyebrow">WEEK 01 / RESULTS</span><h1>1주차 작업 결과</h1><p>검증부터 실제 채점까지 확인한 서진의 준비 결과입니다.</p></div>'
+    intro='<div class="page-head"><span class="eyebrow">WEEK 01 / RESULTS</span><h1>1주차 작업 결과</h1><p>예찬의 invsqrt 후보와 서진의 검증·통합 작업을 실제 채점 결과와 연결했습니다.</p></div>'
     (out/'week1.html').write_text(page('1주차 작업 결과','latest',intro+banner(latest)+'<article class="document">'+body+'</article>'),encoding='utf-8')
     script=(root/'content/meeting/jjeya-week1-speaker-notes.md').read_text(encoding='utf-8')
     notes,_=markdown(script)

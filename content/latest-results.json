@@ -1,10 +1,10 @@
 {
   "updated_at": "2026-11-12",
-  "score_checked_at_utc": "2026-11-11T16:58:06Z",
+  "score_checked_at_utc": "2026-11-12T22:27:56.029326+00:00",
   "status": "COMPLETE",
-  "previous_public_score": 1.0,
-  "public_score": 4.02469,
-  "local_estimate": 4.024700540137955,
+  "previous_public_score": 4.02469,
+  "public_score": 4.11623,
+  "local_estimate": 4.116238835774176,
   "dqi_cost_improvement": 65.19296239703077,
   "candidate": {
     "score": 374878862458.1053,
@@ -22,5 +22,32 @@
   },
   "total_dqi_shots": 307200,
   "independent_teammate_review": "Pending at 2026-11-15 meeting",
-  "scope": "Only DQI replaced; invsqrt and chemistry remain official baselines."
+  "scope": "Yechan invsqrt candidate and public DQI v11 integrated; chemistry remains official baseline.",
+  "invsqrt_candidate": {
+    "status": "PASS",
+    "score": 1941280.5598621224,
+    "toffoli_equivalent": 7583.127186961416,
+    "toffoli_count": 7327.0,
+    "max_toffoli_count": 7327,
+    "t_count": 1.0,
+    "rotation_count": 36.0,
+    "rotation_eps": 3.6809236372811597e-13,
+    "num_qubits": 256,
+    "reaction_depth": 3761,
+    "num_ops": 58505,
+    "verified_shots": 200540928,
+    "worst_error_over_tolerance": 0.9251076979764682,
+    "worst_x": 1119994,
+    "circuit_sha256": "53479d65b192b99868275f8f26e166b0a95715eef742b7d493515d8c64ce3057"
+  },
+  "invsqrt_precision": {
+    "delta_bits": 12,
+    "coef_bits": 17,
+    "square_bits": 28,
+    "product_bits": 27,
+    "result_bits": 28
+  },
+  "invsqrt_cost_reduction_percent": 6.5242370428857726,
+  "invsqrt_author": "Yechan",
+  "integration_author": "Seojin"
 }

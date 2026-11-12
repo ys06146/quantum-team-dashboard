@@ -9,8 +9,8 @@
 
 ## 최신 1주차 결과 · 2026.11.12 공개
 
-- **Kaggle 실제 공개 점수: 1.00000 → 4.02469**, 두 번째 제출 Complete 확인.
-- 공개 DQI v11 재검증·통합으로 DQI 비용 약 65.19배 개선. 다른 두 과제는 공식 기준본 유지.
+- **Kaggle 실제 공개 점수: 1.00000 → 4.02469 → 4.11623**, 세 번째 제출 Complete 확인.
+- 예찬 invsqrt 통합으로 비용 6.52% 감소. 공개 DQI v11 비용은 약 65.19배 개선. 화학은 공식 기준본 유지.
 - [작업 결과와 검증 근거](https://ys06146.github.io/quantum-team-dashboard/week1.html)
 - [12장 발표 자료](https://ys06146.github.io/quantum-team-dashboard/meeting/jjeya-week1-meeting.html) · [발표 대본](https://ys06146.github.io/quantum-team-dashboard/speaker-notes.html)
 - [공개 기록](content/records/) · [실행·검증·패키징 도구](work/week1/)
