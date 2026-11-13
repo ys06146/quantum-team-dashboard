@@ -75,6 +75,7 @@ def page(title,active,body,depth=0,extra_script=''):
     nav=[('home','index.html','전체 현황'),('plan','plan.html','3주 계획 · 역할'),('guides','guides.html','개인별 가이드'),('results','results.html','검증 결과'),('resources','resources.html','자료 · 실행 안내')]
     if LATEST:nav.insert(3,('latest','week1.html','1주차 작업 결과'))
     if PROGRESS_PATH.exists():nav.append(('progress','progress.html','주차별 진행도'))
+    nav.append(('meetings','meetings.html','회의록'))
     links=''.join(f'<a href="{p+url}"'+(' aria-current="page"' if key==active else '')+f'><span class="nav-no">{i:02}</span>{text}</a>' for i,(key,url,text) in enumerate(nav,1))
     return f'''<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="referrer" content="no-referrer"><meta name="description" content="다섯 명의 양자 회로 팀을 위한 3주 실행 계획, 개인별 가이드와 공식 기준 예제 검증 기록."><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'"><title>{esc(title)} · Quantum Team</title><link rel="stylesheet" href="{p}assets/styles.css"><script src="{p}assets/app.js" defer></script>{extra_script}</head><body><div class="shell">
 <aside class="sidebar"><a class="brand" href="{p}index.html"><span class="brand-mark" aria-hidden="true">Q</span><span>Quantum Team<small>CIRCUIT COMPILATION</small></span></a><button class="menu-button" type="button" aria-controls="site-nav" aria-expanded="false">메뉴</button><div class="side-caption">TEAM WORKSPACE</div><nav class="side-nav" id="site-nav" aria-label="대시보드">{links}</nav><div class="side-bottom"><strong>Google Quantum AI</strong>5인 팀 · 3주 실행안<br>{esc(SCHEDULE)}</div></aside>
@@ -161,6 +162,29 @@ def build():
     write('resources.html',page('자료 · 실행 안내','resources',resources))
     write('404.html',page('페이지 찾기','home','<div class="page-head"><h1>이 페이지를 찾을 수 없어요.</h1><p>대시보드에서 가이드와 자료를 다시 찾아주세요.</p></div><a class="button primary" href="index.html">대시보드로 이동 →</a>'))
     write('.nojekyll','')
+
+    meetings_dir = ROOT / 'content/meetings'
+    meeting_files = list(meetings_dir.glob('*.md')) if meetings_dir.exists() else []
+    meeting_files.sort(key=lambda x: x.name, reverse=True)
+    if meeting_files:
+        meeting_list_html = '<div class="document"><ul>'
+        for mf in meeting_files:
+            parts = mf.stem.split('-', 3)
+            date_str = '-'.join(parts[:3]) if len(parts) >= 3 else ''
+            title_str = parts[3] if len(parts) > 3 else mf.stem
+            
+            md_content = mf.read_text(encoding='utf-8')
+            html_content, _ = markdown(md_content)
+            
+            write(f'meetings/{mf.stem}.html', page(f'{date_str} 회의록', 'meetings', f'<div class="page-head"><span class="eyebrow">{esc(date_str)}</span><h1>{esc(title_str)}</h1></div><div class="document">{html_content}</div><div class="section"><a class="button" href="../meetings.html">← 목록으로</a></div>', depth=1))
+            meeting_list_html += f'<li><a href="meetings/{mf.stem}.html"><strong>{esc(date_str)}</strong> - {esc(title_str)}</a></li>'
+        meeting_list_html += '</ul></div>'
+    else:
+        meeting_list_html = '<div class="section reading-note"><p>아직 올라온 회의록이 없어요.</p></div>'
+
+    meetings_body = f'<div class="page-head"><span class="eyebrow">MEETINGS</span><h1>팀 회의록</h1><p>회의록 요약과 결정 사항을 모아둡니다.</p></div>{meeting_list_html}'
+    write('meetings.html', page('회의록', 'meetings', meetings_body))
+
     if PROGRESS_PATH.exists():
         from weekly_progress import build_progress
         build_progress(ROOT,OUT,page,PEOPLE,SUMMARY)
