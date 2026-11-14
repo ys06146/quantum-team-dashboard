@@ -5,7 +5,11 @@
   "initialization_note": "사용자 요청에 따라 전원·전 주차를 0%에서 시작합니다.",
   "tasks": {
     "s1": {
-      "completed": []
+      "completed": [
+        "work",
+        "output",
+        "validation"
+      ]
     },
     "s2": {
       "completed": []
@@ -27,7 +31,11 @@
       "completed": []
     },
     "y1": {
-      "completed": []
+      "completed": [
+        "work",
+        "output",
+        "validation"
+      ]
     },
     "y2": {
       "completed": []
