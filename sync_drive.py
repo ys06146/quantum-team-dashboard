@@ -23,6 +23,8 @@ STATE = SITE / '.sync-state'
 CACHE = Path(os.environ.get('LOCALAPPDATA', tempfile.gettempdir())) / 'QuantumTeamDashboard' / 'builds'
 REMOTE = 'https://github.com/ys06146/quantum-team-dashboard.git'
 PUBLIC = 'https://ys06146.github.io/quantum-team-dashboard/'
+# pythonw has no console, so each console child (git.exe) would otherwise flash a new cmd window.
+NO_WINDOW = getattr(subprocess, 'CREATE_NO_WINDOW', 0)
 SECRET = re.compile(r'-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----|github_pat_[A-Za-z0-9_]{20,}|gh[pousr]_[A-Za-z0-9]{25,}|sk-[A-Za-z0-9_-]{30,}|AKIA[0-9A-Z]{16}|AIza[A-Za-z0-9_-]{30,}')
 
 def now():
@@ -36,7 +38,7 @@ def atomic_json(path, value):
 def git(*args, cwd=None):
     executable = shutil.which('git') or str(Path(os.environ.get('ProgramFiles', 'C:/Program Files')) / 'Git/cmd/git.exe')
     env = dict(os.environ, GIT_TERMINAL_PROMPT='0', GCM_INTERACTIVE='Never')
-    result = subprocess.run([executable, *args], cwd=cwd or SITE, env=env, capture_output=True, text=True, encoding='utf-8', errors='replace', timeout=120)
+    result = subprocess.run([executable, *args], cwd=cwd or SITE, env=env, capture_output=True, text=True, encoding='utf-8', errors='replace', timeout=120, creationflags=NO_WINDOW)
     if result.returncode:
         raise RuntimeError('git ' + args[0] + ' failed: ' + (result.stderr or result.stdout)[-1600:])
     return result.stdout.strip()
@@ -74,7 +76,7 @@ def engine_hash():
     return hashlib.sha256(b''.join(p.read_bytes() for p in files if p.is_file() and p.name != 'desktop.ini')).hexdigest()
 
 def run_build(checkout):
-    result = subprocess.run([sys.executable, '-X', 'utf8', str(checkout / 'build.py')], cwd=checkout, capture_output=True, text=True, encoding='utf-8', errors='replace', timeout=60)
+    result = subprocess.run([sys.executable, '-X', 'utf8', str(checkout / 'build.py')], cwd=checkout, capture_output=True, text=True, encoding='utf-8', errors='replace', timeout=60, creationflags=NO_WINDOW)
     if result.returncode:
         raise RuntimeError('Document validation failed: ' + (result.stderr or result.stdout)[-1600:])
     for parent in ['content', 'docs']:
