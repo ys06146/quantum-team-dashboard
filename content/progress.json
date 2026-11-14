@@ -8,7 +8,8 @@
       "completed": [
         "work",
         "output",
-        "validation"
+        "validation",
+        "handoff"
       ]
     },
     "s2": {
@@ -21,7 +22,8 @@
       "completed": [
         "work",
         "output",
-        "validation"
+        "validation",
+        "handoff"
       ]
     },
     "j2": {
@@ -34,7 +36,8 @@
       "completed": [
         "work",
         "output",
-        "validation"
+        "validation",
+        "handoff"
       ]
     },
     "y2": {
