@@ -45,7 +45,12 @@
       ]
     },
     "j3": {
-      "completed": []
+      "completed": [
+        "work",
+        "output",
+        "validation",
+        "handoff"
+      ]
     },
     "y1": {
       "completed": [
