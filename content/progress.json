@@ -31,7 +31,12 @@
       ]
     },
     "j2": {
-      "completed": []
+      "completed": [
+        "work",
+        "output",
+        "validation",
+        "handoff"
+      ]
     },
     "j3": {
       "completed": []
@@ -56,7 +61,8 @@
       "completed": [
         "work",
         "output",
-        "validation"
+        "validation",
+        "handoff"
       ]
     },
     "e1": {
