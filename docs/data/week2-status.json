@@ -52,6 +52,31 @@
       "cost_formula": "λ_eff × T_total × Q_total"
     }
   ],
+  "own_circuits": {
+    "checked_at": "2026-11-16 21:55 CT",
+    "composite_estimate": 3.512,
+    "note": "Kaggle 점수는 비공개 salt로 다시 계산되므로 제출 결과와 다를 수 있어요.",
+    "tasks": [
+      {
+        "task": "invsqrt",
+        "ratio": 8.171,
+        "owner": "invsqrt 자체 재설계",
+        "status": "full + salt PASS"
+      },
+      {
+        "task": "dqi",
+        "ratio": 5.1804,
+        "owner": "DQI 자체 디코더",
+        "status": "full × salt 3 PASS"
+      },
+      {
+        "task": "dfthcsos",
+        "ratio": 1.0235,
+        "owner": "화학 가중치 재적합",
+        "status": "salt 4 PASS"
+      }
+    ]
+  },
   "deadlines": [
     {
       "date": "2026-11-18",

@@ -94,6 +94,19 @@ def build_week2(root, out, page, people):
              '<a href="results.html">기준 기록 →</a></div><div class="bench-grid">' + cards + '</div>'
              '<p class="section-note">기하평균이라 가장 약한 과제가 전체 점수를 끌어내려요.</p></section>')
 
+    own = data.get('own_circuits')
+    if own:
+        oc = ''
+        for item in own['tasks']:
+            oc += (f'<article class="bench-card"><div class="bench-top"><strong>{TASK_LABELS[item["task"]]}</strong>'
+                   f'<span class="pass">{escape(item["status"])}</span></div>'
+                   f'<div class="bench-value">{fmt_ratio(item["ratio"])}</div>'
+                   f'<div class="bench-caption">{escape(item["owner"])}</div></article>')
+        body += ('<section class="section"><div class="section-title"><div><h2>자체 회로 진행</h2>'
+                 f'<p>팀이 직접 만든 회로만으로 낸 배율이에요. 공식 검증기 로컬 결과이고, 아직 제출 전이에요. '
+                 f'{escape(own["checked_at"])} 기준</p></div></div><div class="bench-grid">' + oc + '</div>'
+                 f'<p class="section-note">세 과제를 합친 종합 추정 {own["composite_estimate"]:.2f}. {escape(own.get("note", ""))}</p></section>')
+
     rows = ''
     for row in data['deadlines']:
         when = day_label(row['date']) + (' ' + row['time'] if row.get('time') else '')
