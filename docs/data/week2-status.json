@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "updated_at": "2026-11-16",
+  "period": "2026.11.16–11.22",
+  "score": {
+    "public_score": 4.11623,
+    "checked_at": "2026-11-12",
+    "history": [
+      {
+        "date": "2026-11-11",
+        "public_score": 1.0,
+        "label": "공식 기준본 첫 제출"
+      },
+      {
+        "date": "2026-11-11",
+        "public_score": 4.02469,
+        "label": "공개 DQI v11 통합"
+      },
+      {
+        "date": "2026-11-12",
+        "public_score": 4.11623,
+        "label": "예찬 invsqrt 비트폭 후보 통합"
+      }
+    ]
+  },
+  "leaderboard": {
+    "snapshot_utc": "2026-11-16 16:16",
+    "teams": 3197,
+    "first": 30.96223,
+    "tenth": 28.89937,
+    "hundredth": 28.10019,
+    "median": 25.09022,
+    "source_note": "Kaggle 공개 리더보드를 모은 공개 집계 자료 기준이며, 팀이 Kaggle 화면에서 직접 대조한 값은 아니에요."
+  },
+  "tasks": [
+    {
+      "task": "invsqrt",
+      "ratio": 1.0697960287938921,
+      "basis": "예찬 비트폭 후보 12/17/28/27/28",
+      "cost_formula": "큐비트 × (Toffoli + T/4)"
+    },
+    {
+      "task": "dqi",
+      "ratio": 65.19296239703077,
+      "basis": "공개 DQI v11 · Syed Asad Ali · Apache-2.0",
+      "cost_formula": "반복 계수 × 큐비트² × Toffoli"
+    },
+    {
+      "task": "dfthcsos",
+      "ratio": 1.0,
+      "basis": "공식 기준본",
+      "cost_formula": "λ_eff × T_total × Q_total"
+    }
+  ],
+  "deadlines": [
+    {
+      "date": "2026-11-18",
+      "time": "18:00",
+      "what": "개선 후보 전달: full PASS 기록과 해시 포함"
+    },
+    {
+      "date": "2026-11-19",
+      "time": "",
+      "what": "통합 ZIP 빌드, 소연 해시 대조, 개선 시 저녁 1차 제출"
+    },
+    {
+      "date": "2026-11-20",
+      "time": "16:00",
+      "what": "재시도 마감선 (중간 마일스톤 17:59)"
+    },
+    {
+      "date": "2026-11-22",
+      "time": "",
+      "what": "회의: 제출 점수·결정 리뷰, 3주차 계획"
+    },
+    {
+      "date": "2026-11-25",
+      "time": "",
+      "what": "3주차 동결, 이후 재검증·패키징"
+    },
+    {
+      "date": "2027-01-20",
+      "time": "17:59",
+      "what": "대회 최종 마감 (팀 계획 기준)"
+    }
+  ],
+  "rules": [
+    "회로와 코드는 팀이 직접 만든 것만 써요. 공개 자료는 기법을 배우는 참고로만 봐요.",
+    "공식 full PASS이고 현재 제출본보다 비용이 낮을 때만 채택해요. 아니면 이전 유효본을 유지해요.",
+    "ZIP은 소연이 해시를 대조한 뒤 제출해요. 로컬 PASS는 Kaggle 채점 통과를 보장하지 않아요."
+  ]
+}

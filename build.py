@@ -19,6 +19,7 @@ BASE=json.loads((ROOT/'content/baselines.json').read_text(encoding='utf-8'))
 LATEST_PATH=ROOT/'content/latest-results.json'
 LATEST=json.loads(LATEST_PATH.read_text(encoding='utf-8')) if LATEST_PATH.exists() else None
 PROGRESS_PATH=ROOT/'content/progress.json'
+WEEK2_PATH=ROOT/'content/week2-status.json'
 
 SUMMARY_PATH=ROOT/'content/plan-summary.json'
 SUMMARY=json.loads(SUMMARY_PATH.read_text(encoding='utf-8')) if SUMMARY_PATH.exists() else {}
@@ -74,6 +75,7 @@ def page(title,active,body,depth=0,extra_script=''):
     p='../'*depth
     nav=[('home','index.html','전체 현황'),('plan','plan.html','3주 계획 · 역할'),('guides','guides.html','개인별 가이드'),('results','results.html','검증 결과'),('resources','resources.html','자료 · 실행 안내')]
     if LATEST:nav.insert(3,('latest','week1.html','1주차 작업 결과'))
+    if WEEK2_PATH.exists():nav.insert(1,('week2','week2.html','2주차 현황'))
     if PROGRESS_PATH.exists():nav.append(('progress','progress.html','주차별 진행도'))
     nav.append(('meetings','meetings.html','회의록'))
     links=''.join(f'<a href="{p+url}"'+(' aria-current="page"' if key==active else '')+f'><span class="nav-no">{i:02}</span>{text}</a>' for i,(key,url,text) in enumerate(nav,1))
@@ -107,6 +109,10 @@ def build():
     if SUMMARY.get('phases'):
         phase_html='<div class="phases">'+''.join('<div class="phase"><span class="phase-no">W'+str(i)+'</span><div><strong>'+esc(p['title'])+'</strong><small>'+esc(p['label'])+' · '+esc(p['detail'])+'</small></div></div>' for i,p in enumerate(SUMMARY['phases'],1))+'</div></section>'
         home=home[:home.index('<div class="phases">')]+phase_html
+    if WEEK2_PATH.exists():
+        from week2_status import banner as week2_banner,build_week2,validate as validate_week2
+        home+=week2_banner(validate_week2(json.loads(WEEK2_PATH.read_text(encoding='utf-8'))))
+        build_week2(ROOT,OUT,page,PEOPLE)
     if LATEST:
         from public_results import banner
         home+=banner(LATEST)
