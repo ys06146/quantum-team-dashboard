@@ -69,7 +69,10 @@
     },
     "e2": {
       "completed": [
-        "work"
+        "work",
+        "output",
+        "validation",
+        "handoff"
       ]
     },
     "e3": {
@@ -85,7 +88,8 @@
       "completed": [
         "work",
         "output",
-        "validation"
+        "validation",
+        "handoff"
       ]
     },
     "c3": {
