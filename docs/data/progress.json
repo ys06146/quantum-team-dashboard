@@ -13,7 +13,11 @@
       ]
     },
     "s2": {
-      "completed": []
+      "completed": [
+        "work",
+        "output",
+        "validation"
+      ]
     },
     "s3": {
       "completed": []
@@ -42,7 +46,10 @@
     },
     "y2": {
       "completed": [
-        "work"
+        "work",
+        "output",
+        "validation",
+        "handoff"
       ]
     },
     "y3": {
