@@ -41,7 +41,9 @@
       ]
     },
     "y2": {
-      "completed": []
+      "completed": [
+        "work"
+      ]
     },
     "y3": {
       "completed": []
@@ -50,11 +52,14 @@
       "completed": [
         "work",
         "output",
+        "validation",
         "handoff"
       ]
     },
     "e2": {
-      "completed": []
+      "completed": [
+        "work"
+      ]
     },
     "e3": {
       "completed": []
@@ -66,7 +71,9 @@
       ]
     },
     "c2": {
-      "completed": []
+      "completed": [
+        "work"
+      ]
     },
     "c3": {
       "completed": []
