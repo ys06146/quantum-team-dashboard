@@ -106,7 +106,10 @@
       ]
     },
     "c3": {
-      "completed": []
+      "completed": [
+        "work",
+        "output"
+      ]
     }
   }
 }
