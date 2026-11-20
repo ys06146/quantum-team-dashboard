@@ -93,14 +93,14 @@
     "c1": {
       "completed": [
         "work",
-        "output"
+        "output",
+        "handoff"
       ]
     },
     "c2": {
       "completed": [
         "work",
         "output",
-        "validation",
         "handoff"
       ]
     },
